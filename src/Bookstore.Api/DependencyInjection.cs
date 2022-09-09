@@ -1,4 +1,4 @@
-using BuberDinner.Contracts.Models;
+using Bookstore.Contracts.Settings;
 
 public static class DependencyInjection
 {

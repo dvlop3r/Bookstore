@@ -1,4 +1,4 @@
-namespace BuberDinner.Contracts.Models;
+namespace Bookstore.Contracts.Settings;
 
 public class JwtSettings{
     public string Secret { get; init; } = null!;

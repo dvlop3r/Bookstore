@@ -1,5 +1,4 @@
-namespace BuberDinner.Contracts.Models
-{
+namespace Bookstore.Contracts.Settings;
     public class DatabaseSettings
     {
         public string AppDbContext { get; set; } = default!;
@@ -8,4 +7,3 @@ namespace BuberDinner.Contracts.Models
         public int Timeout { get; set; }
         public int MaxRetryDelay { get; set; }
     }
-}
