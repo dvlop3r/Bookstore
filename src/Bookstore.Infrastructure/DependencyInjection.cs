@@ -29,7 +29,7 @@ public static class DependencyInjection
             dbContextOptionsBuilder.UseSqlServer(settings.DatabaseSettings.AppDbContext, options =>
             {
                 options.EnableRetryOnFailure(settings.DatabaseSettings.MaxRetryCount, TimeSpan.FromSeconds(settings.DatabaseSettings.MaxRetryDelay), null);
-                options.MigrationsAssembly("Bookstore.Infrastructure");
+                // options.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName);
                 options.CommandTimeout(settings.DatabaseSettings.Timeout);
                 });
                 // dbContextOptionsBuilder.EnableDetailedErrors();
