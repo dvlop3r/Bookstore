@@ -3,6 +3,6 @@ using Bookstore.Contracts.Models;
 using MediatR;
 
 namespace Bookstore.Application.Commands;
-
-public record BookstoreCommand(
-    BookstoreRequest Request) : IRequest<BookstoreResult>;
+public record UpdateBookCommand(
+    Guid Id,
+    BookstoreRequest  Request) : IRequest<BookstoreResult>;

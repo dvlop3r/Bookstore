@@ -40,27 +40,23 @@ namespace Bookstore.Api.Controllers
             if(request is null)
                 return BadRequest();
 
-            var result = await _sender.Send(new BookstoreCommand(request));
+            var result = await _sender.Send(new CreateBookCommand(request));
 
             return CreatedAtAction(nameof(GetBook), new { id = result.Id }, result);
         }
 
-        // [HttpPut("{id}")]
-        // public async Task<ActionResult> UpdateBook(int id, Book book)
-        // {
-        //     if (id != book.Id)
-        //     {
-        //         return BadRequest();
-        //     }
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateBook(Guid id, BookstoreRequest book)
+        {
+            if (id == Guid.Empty || book is null)
+                return BadRequest();
 
-        //     var updated = await _bookstoreService.UpdateBookAsync(book);
-        //     if (!updated)
-        //     {
-        //         return NotFound();
-        //     }
+            var result = await _sender.Send(new UpdateBookCommand(id, book));
+            if(result is null)
+                return BadRequest("Book not found");
 
-        //     return NoContent();
-        // }
+            return NoContent();
+        }
 
         // [HttpDelete("{id}")]
         // public async Task<ActionResult> DeleteBook(int id)

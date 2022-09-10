@@ -10,17 +10,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bookstore.Application.Commands;
 
-public class BookstoreCommandHandler : IRequestHandler<BookstoreCommand, BookstoreResult>
+public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, BookstoreResult>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public BookstoreCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    public CreateBookCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
-    public async Task<BookstoreResult> Handle(BookstoreCommand command, CancellationToken cancellationToken)
+    public async Task<BookstoreResult> Handle(CreateBookCommand command, CancellationToken cancellationToken)
     {
         // Ensure command is not null
         if (command.Request == null)

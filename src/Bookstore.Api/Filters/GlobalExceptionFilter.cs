@@ -49,7 +49,7 @@ public class GlobalExceptionFilter : IExceptionFilter //ExceptionFilterAttribute
             context.Result = new NotFoundObjectResult(exception.Message);
             context.HttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
         }
-        else if(exceptionType == typeof(DuplicateBookException))
+        else if(exceptionType == typeof(BookNotFoundException))
         {
             var problemDetails = new ProblemDetails
             {
