@@ -1,3 +1,4 @@
+using Bookstore.Api.Filters;
 using Bookstore.Application.Exceptions;
 using FluentValidation;
 using FluentValidation.Results;
@@ -10,7 +11,7 @@ namespace Bookstore.Api.Controllers;
 [ApiController]
 // [Produces("application/json")]
 // [Consumes("application/json")]
-// [ErrorHandlingFilterAttribute] handled by exception middleware
+// [GlobalExceptionFilter] //handled by exception middleware
 public class ApiController : ControllerBase
 {
     protected IActionResult Problem(Exception? exception)

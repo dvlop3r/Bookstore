@@ -22,10 +22,14 @@ public class BookstoreCommandHandler : IRequestHandler<BookstoreCommand, Booksto
     }
     public async Task<BookstoreResult> Handle(BookstoreCommand command, CancellationToken cancellationToken)
     {
-        // Ensure book doesn't already exist
+        // Ensure command is not null
+        if (command.Request == null)
+            throw new ArgumentNullException("Book request is null");
+
+        // Ensure book doesn't exist already
         var isExist  = await _unitOfWork.Books.TableNoTracking.AnyAsync(b => b.Title == command.Request.Title, cancellationToken);
         if(isExist)
-            throw new DuplicateBookException();
+            throw new DuplicateBookException("Book already exists");
 
         TypeAdapterConfig<BookstoreRequest,Book>.NewConfig()
             .Map(dest => dest.Id, src => Guid.NewGuid())
@@ -35,7 +39,7 @@ public class BookstoreCommandHandler : IRequestHandler<BookstoreCommand, Booksto
 
         // Add book to database
         if(await _unitOfWork.Books.addBookAsync(book) is not Book)
-            throw new Exception("Error creating book");
+            throw new DatabaseErrorException("Error adding book to database");
 
         await _unitOfWork.CompleteAsync();
 

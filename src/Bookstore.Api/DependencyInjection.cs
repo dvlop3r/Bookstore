@@ -1,3 +1,4 @@
+using Bookstore.Api.Filters;
 using Bookstore.Contracts.Settings;
 
 namespace Bookstore.Api;
@@ -7,8 +8,8 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        // Global exception handling filter
-        //builder.Services.AddControllers(options => options.Filters.Add(new GlobalExceptionFilter()));
+        // Secong approach to handle exceptions
+        // services.AddControllers(options => options.Filters.Add(new GlobalExceptionFilter()));
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();

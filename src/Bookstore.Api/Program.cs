@@ -22,8 +22,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+    // First approach to handle exceptions
+    app.UseExceptionHandler("/error");
 
-app.UseExceptionHandler("/error");
+    // Third approach to handle exceptions
+    //app.UseMiddleware<ErrorHandlingMiddleware>(); 
 
 app.UseHttpsRedirection();
 
