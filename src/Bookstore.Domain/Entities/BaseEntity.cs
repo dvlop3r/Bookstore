@@ -5,6 +5,6 @@ namespace Bookstore.Domain.Entities
         public Guid Id { get; set; }
         public virtual bool IsDeleted { get; set; }
         public virtual DateTime Created { get; set; }
-        public virtual DateTime Modified { get; set; }
+        public virtual DateTime Updated { get; set; }
     }
 }

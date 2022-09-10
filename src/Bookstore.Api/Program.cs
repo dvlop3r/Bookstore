@@ -1,4 +1,5 @@
 using Bookstore.Api;
+using Bookstore.Application;
 using Bookstore.Contracts.Settings;
 using Bookstore.Infrastructure;
 
@@ -11,6 +12,7 @@ var appSettings = builder.Configuration.Get<AppSettings>();
 
 builder.Services.AddPresentation(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration, appSettings);
+builder.Services.AddApplication();
 
 var app = builder.Build();
 

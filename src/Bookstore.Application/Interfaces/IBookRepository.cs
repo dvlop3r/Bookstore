@@ -4,6 +4,6 @@ namespace Bookstore.Application.Interfaces;
 
 public interface IBookRepository : IRepository<Book>
 {
-    Task<Book?> getUserByEmailAsync(string email);
-    Task<Book> addUserAsync(Book book);
+    Task<Book?> getBookByIdAsync(Guid Id);
+    Task<Book> addBookAsync(Book book);
 }

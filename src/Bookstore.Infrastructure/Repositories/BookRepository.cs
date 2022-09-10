@@ -13,12 +13,12 @@ public class BookRepository : Repository<Book> , IBookRepository
         _context = context;
     }
 
-    public async Task<Book?> getUserByEmailAsync(string email)
+    public async Task<Book?> getBookByIdAsync(Guid Id)
     {
-        var user = await TableNoTracking.FirstOrDefaultAsync(x => x.Description == email);
-        return user;
+        var book = await TableNoTracking.FirstOrDefaultAsync(x => x.Id == Id);
+        return book;
     }
-    public async Task<Book> addUserAsync(Book book)
+    public async Task<Book> addBookAsync(Book book)
     {
         return await InsertAsync(book);
     }
