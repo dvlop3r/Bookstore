@@ -5,7 +5,7 @@ namespace Bookstore.Infrastructure;
 
 public class AppDbContext : DbContext
 {
-    public DbSet<Book>? Books { get; set; }
+    public DbSet<Book> Books { get; set; } = null!;
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
         // Database.EnsureCreated();

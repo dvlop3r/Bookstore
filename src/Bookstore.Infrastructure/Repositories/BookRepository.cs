@@ -13,7 +13,7 @@ public class BookRepository : Repository<Book> , IBookRepository
         _context = context;
     }
 
-    public async Task<Book?> getBookByIdAsync(Guid Id)
+    public async Task<Book> getBookByIdAsync(Guid Id)
     {
         var book = await TableNoTracking.FirstOrDefaultAsync(x => x.Id == Id);
         return book;
