@@ -28,6 +28,9 @@ namespace Bookstore.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<BookstoreResponse>> GetBook(Guid id)
         {
+            if(id == Guid.Empty)
+                return BadRequest("Invalid Id");
+                
             var result = await _sender.Send(new GetBookQuery(id));
             return Ok(result);
         }
@@ -35,7 +38,11 @@ namespace Bookstore.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<BookstoreResponse>> CreateBook(BookstoreRequest request)
         {
+            if(request is null)
+                return BadRequest();
+
             var result = await _sender.Send(new BookstoreCommand(request));
+
             return CreatedAtAction(nameof(GetBook), new { id = result.Id }, result);
         }
 
