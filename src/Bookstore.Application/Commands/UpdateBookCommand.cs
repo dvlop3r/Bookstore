@@ -5,4 +5,4 @@ using MediatR;
 namespace Bookstore.Application.Commands;
 public record UpdateBookCommand(
     Guid Id,
-    BookstoreRequest  Request) : IRequest<BookstoreResult>;
+    BookstoreRequest  Request) : IRequest<bool>;

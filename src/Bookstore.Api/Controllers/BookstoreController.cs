@@ -49,11 +49,11 @@ namespace Bookstore.Api.Controllers
         public async Task<ActionResult> UpdateBook(Guid id, BookstoreRequest book)
         {
             if (id == Guid.Empty || book is null)
-                return BadRequest();
+                throw new ArgumentNullException("Book request is null");
 
-            var result = await _sender.Send(new UpdateBookCommand(id, book));
-            if(result is null)
-                return BadRequest("Book not found");
+            var updated = await _sender.Send(new UpdateBookCommand(id, book));
+            if(!updated)
+                return BadRequest("Unable to update book");
 
             return NoContent();
         }

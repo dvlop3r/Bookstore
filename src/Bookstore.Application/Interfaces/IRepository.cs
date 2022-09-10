@@ -10,7 +10,7 @@ public interface IRepository<Entity> where Entity : BaseEntity
     Task<IReadOnlyList<Entity>> ListAllAsync();
     Entity Insert(Entity entity);
     Task<Entity> InsertAsync(Entity entity);
-    Task UpdateAsync(Entity entity, bool saveChanges = false);
+    Task<bool> UpdateAsync(Entity entity, bool saveChanges = false);
     Task<bool> DeleteAsync(Entity entity);
     IQueryable<Entity> Table { get; }
     IQueryable<Entity> TableNoTracking { get; }

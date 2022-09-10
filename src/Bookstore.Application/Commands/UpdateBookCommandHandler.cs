@@ -9,7 +9,7 @@ using MediatR;
 
 namespace Bookstore.Application.Commands;
 
-public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, BookstoreResult>
+public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, bool>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
@@ -20,7 +20,7 @@ public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, Books
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<BookstoreResult> Handle(UpdateBookCommand command, CancellationToken cancellationToken)
+    public async Task<bool> Handle(UpdateBookCommand command, CancellationToken cancellationToken)
     {
         // Ensure command is not null
         if (command.Request == null)
@@ -38,8 +38,8 @@ public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, Books
         var bookToUpdate = _mapper.Map<Book>((command.Request, command.Id));
 
         // Update book
-        await _unitOfWork.Books.UpdateAsync(bookToUpdate, true);
+        var updated = await _unitOfWork.Books.UpdateAsync(bookToUpdate, true);
 
-        return _mapper.Map<BookstoreResult>(bookToUpdate);
+        return updated;
     }
 }

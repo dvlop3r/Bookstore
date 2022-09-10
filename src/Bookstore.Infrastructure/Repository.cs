@@ -54,15 +54,22 @@ public class Repository<Entity> : IRepository<Entity> where Entity : BaseEntity
     #endregion
 
     #region Update
-    public virtual async Task UpdateAsync(Entity entity, bool saveChanges = false)
+    public virtual async Task<bool> UpdateAsync(Entity entity, bool saveChanges = false)
     {
         if (entity == null)
             throw new ArgumentNullException(nameof(entity));
-        Entities.Attach(entity);
-        _dbContext.Entry(entity).State = EntityState.Modified;
-        
-        if(saveChanges)
-            await _dbContext.SaveChangesAsync();
+        try{
+            Entities.Attach(entity);
+            _dbContext.Entry(entity).State = EntityState.Modified;
+            
+            if(saveChanges)
+                await _dbContext.SaveChangesAsync();
+        }
+        catch(Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+        return true;
     }
     #endregion
 
