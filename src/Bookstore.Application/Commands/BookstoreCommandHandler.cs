@@ -1,5 +1,6 @@
 using Bookstore.Application.Interfaces;
 using Bookstore.Application.Models;
+using Bookstore.Contracts.Models;
 using Bookstore.Domain.Entities;
 using Mapster;
 using MapsterMapper;
@@ -23,17 +24,18 @@ public class BookstoreCommandHandler : IRequestHandler<BookstoreCommand, Booksto
         if(command is null)
             throw new ArgumentNullException(nameof(command));
 
-        TypeAdapterConfig<BookstoreCommand,Book>.NewConfig()
+        TypeAdapterConfig<BookstoreRequest,Book>.NewConfig()
             .Map(dest => dest.Id, src => Guid.NewGuid())
             .Map(dest => dest.Created, src => DateTime.Now)
             .Map(dest => dest.Updated, src => DateTime.Now);
         var book = _mapper.Map<Book>(command.Request);
 
+        // Add book to database
         if(await _unitOfWork.Books.addBookAsync(book) is not Book)
             throw new Exception("Error creating book");
 
-        TypeAdapterConfig<Book,BookstoreResult>.NewConfig()
-            .Map(dest => dest.Id, src => src.Id);
+        await _unitOfWork.CompleteAsync();
+
         var result = _mapper.Map<BookstoreResult>(book);
 
         return result;

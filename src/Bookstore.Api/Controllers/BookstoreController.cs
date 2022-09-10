@@ -1,3 +1,4 @@
+using Bookstore.Application.Commands;
 using Bookstore.Application.Queries;
 using Bookstore.Contracts.Models;
 using Bookstore.Domain.Entities;
@@ -27,16 +28,16 @@ namespace Bookstore.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<BookstoreResponse>> GetBook(Guid id)
         {
-            var book = await _sender.Send(new GetBookQuery(id));
-            return Ok(book);
+            var result = await _sender.Send(new GetBookQuery(id));
+            return Ok(result);
         }
 
-        // [HttpPost]
-        // public async Task<ActionResult<Book>> CreateBook(Book book)
-        // {
-        //     var createdBook = await _bookstoreService.CreateBookAsync(book);
-        //     return CreatedAtAction(nameof(GetBook), new { id = createdBook.Id }, createdBook);
-        // }
+        [HttpPost]
+        public async Task<ActionResult<BookstoreResponse>> CreateBook(BookstoreRequest request)
+        {
+            var result = await _sender.Send(new BookstoreCommand(request));
+            return CreatedAtAction(nameof(GetBook), new { id = result.Id }, result);
+        }
 
         // [HttpPut("{id}")]
         // public async Task<ActionResult> UpdateBook(int id, Book book)

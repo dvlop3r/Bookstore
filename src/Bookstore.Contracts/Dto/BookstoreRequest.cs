@@ -1,8 +1,8 @@
 namespace Bookstore.Contracts.Models;
 public record BookstoreRequest(
-    string title,
-    string author,
-    string description,
-    string coverImageUrl,
-    string bookUrl,
-    DateTime publishDate);
+    string Title,
+    string Author,
+    string Description,
+    string CoverImageUrl,
+    string BookUrl,
+    DateTime PublishDate);
