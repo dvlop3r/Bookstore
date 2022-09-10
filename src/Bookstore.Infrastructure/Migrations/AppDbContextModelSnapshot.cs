@@ -17,6 +17,7 @@ namespace Bookstore.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("BS")
                 .HasAnnotation("ProductVersion", "6.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -64,12 +65,12 @@ namespace Bookstore.Infrastructure.Migrations
 
                     b.HasIndex("Title");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", "BS");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("06446e78-8d2d-4a8c-9b0f-2fd020d1da84"),
+                            Id = new Guid("e62dbdab-4cc9-4477-8ca3-b026b875fb78"),
                             Author = "Robert C. Martin",
                             BookUrl = "https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882",
                             CoverImageUrl = "https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._SX379_BO1,204,203,200_.jpg",
@@ -82,7 +83,7 @@ namespace Bookstore.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8eb9b9a6-678a-4f56-b2b0-9501128dd105"),
+                            Id = new Guid("35367a0f-b0ba-44e5-8542-7c6546b5ca98"),
                             Author = "Martin Fowler",
                             BookUrl = "https://www.amazon.com/Refactoring-Improving-Design-Existing-Code/dp/0201485672",
                             CoverImageUrl = "https://images-na.ssl-images-amazon.com/images/I/51ZyvZ9ZGJL._SX379_BO1,204,203,200_.jpg",
@@ -95,7 +96,7 @@ namespace Bookstore.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("81208890-6c45-42a6-a256-9476f116690b"),
+                            Id = new Guid("6ad1e9c2-6a99-47b1-8661-6b6742e6b456"),
                             Author = "Eric Evans",
                             BookUrl = "https://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215",
                             CoverImageUrl = "https://images-na.ssl-images-amazon.com/images/I/51p1Y8JN3aL._SX379_BO1,204,203,200_.jpg",

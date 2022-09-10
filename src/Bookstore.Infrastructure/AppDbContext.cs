@@ -8,11 +8,12 @@ public class AppDbContext : DbContext
     public DbSet<Book>? Books { get; set; }
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
-        Database.EnsureCreated();
+        // Database.EnsureCreated();
     }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.Entity<Book>().HasIndex(b => b.Title);
+        builder.HasDefaultSchema("BS");
         
         builder.Entity<Book>().HasData(
             new Book
