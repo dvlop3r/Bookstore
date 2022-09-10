@@ -1,0 +1,20 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Bookstore.Api.Controllers;
+
+public class ErrorController : ApiController
+{
+    [Route("/error")]
+    [AllowAnonymous]
+    public IActionResult Error()
+    {
+        Exception? exception = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
+
+        if (exception?.GetType().Name == "ValidationException")
+            return ValidationProblem(exception);
+            
+        return Problem(exception);
+    }
+}

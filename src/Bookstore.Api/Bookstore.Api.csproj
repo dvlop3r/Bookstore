@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Bookstore.Contracts\Bookstore.Contracts.csproj" />
     <ProjectReference Include="..\Bookstore.Infrastructure\Bookstore.Infrastructure.csproj" />
+    <ProjectReference Include="..\Bookstore.Application\Bookstore.Application.csproj" />
   </ItemGroup>
 
 </Project>
