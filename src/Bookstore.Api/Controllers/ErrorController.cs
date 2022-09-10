@@ -7,7 +7,6 @@ namespace Bookstore.Api.Controllers;
 public class ErrorController : ApiController
 {
     [Route("/error")]
-    [AllowAnonymous]
     public IActionResult Error()
     {
         Exception? exception = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;

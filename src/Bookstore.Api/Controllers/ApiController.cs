@@ -8,10 +8,9 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 namespace Bookstore.Api.Controllers;
 
 [ApiController]
-[Authorize]
-[Produces("application/json")]
-[Consumes("application/json")]
-// [ErrorHandlingFilterAttribute]    done in the service container
+// [Produces("application/json")]
+// [Consumes("application/json")]
+// [ErrorHandlingFilterAttribute] handled by exception middleware
 public class ApiController : ControllerBase
 {
     protected IActionResult Problem(Exception? exception)

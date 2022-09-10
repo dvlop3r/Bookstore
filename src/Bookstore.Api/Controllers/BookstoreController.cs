@@ -7,9 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Bookstore.Api.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-    public class BookstoreController : ControllerBase
+    public class BookstoreController : ApiController
     {
         private readonly ISender _sender;
 

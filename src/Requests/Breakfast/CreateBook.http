@@ -1,0 +1,11 @@
+POST https://localhost:7257/api/bookstore
+Content-Type: application/json
+
+{
+    "title" : "title1",
+    "author" : "Sarwan",
+    "description" : "title1 description",
+    "CoverImageUrl" : "cover image url",
+    "BookUrl" : "book url",
+    "publishDate" : "2022-01-10"
+}
