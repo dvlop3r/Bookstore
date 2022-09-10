@@ -4,7 +4,7 @@ using MapsterMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bookstore.Application.CommandsQueries.Queries;
+namespace Bookstore.Application.Queries;
 
 public class GetBooksQueryHandler : IRequestHandler<GetBooksQuery, IEnumerable<BookstoreResult>>
 {

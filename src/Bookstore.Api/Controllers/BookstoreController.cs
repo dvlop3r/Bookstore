@@ -1,3 +1,6 @@
+using Bookstore.Application.Queries;
+using Bookstore.Domain.Entities;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bookstore.Api.Controllers
@@ -6,12 +9,19 @@ namespace Bookstore.Api.Controllers
     [Route("api/[controller]")]
     public class BookstoreController : ControllerBase
     {
-        // [HttpGet]
-        // public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
-        // {
-        //     var books = await _bookstoreService.GetBooksAsync();
-        //     return Ok(books);
-        // }
+        private readonly ISender _mapper;
+
+        public BookstoreController(ISender mapper)
+        {
+            _mapper = mapper;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
+        {
+            var books = await _mapper.Send(new GetBooksQuery());
+            return Ok(books);
+        }
 
         // [HttpGet("{id}")]
         // public async Task<ActionResult<Book>> GetBook(int id)

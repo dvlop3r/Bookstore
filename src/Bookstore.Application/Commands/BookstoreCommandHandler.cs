@@ -5,7 +5,7 @@ using Mapster;
 using MapsterMapper;
 using MediatR;
 
-namespace Bookstore.Application.CommandsQueries.Commands;
+namespace Bookstore.Application.Commands;
 
 public class BookstoreCommandHandler : IRequestHandler<BookstoreCommand, BookstoreResult>
 {
