@@ -11,7 +11,7 @@ public interface IRepository<Entity> where Entity : BaseEntity
     Entity Insert(Entity entity);
     Task<Entity> InsertAsync(Entity entity);
     Task UpdateAsync(Entity entity, bool saveChanges = false);
-    Task DeleteAsync(Entity entity);
+    Task<bool> DeleteAsync(Entity entity);
     IQueryable<Entity> Table { get; }
     IQueryable<Entity> TableNoTracking { get; }
 }

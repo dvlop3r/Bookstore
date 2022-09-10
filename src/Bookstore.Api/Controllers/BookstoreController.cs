@@ -58,16 +58,17 @@ namespace Bookstore.Api.Controllers
             return NoContent();
         }
 
-        // [HttpDelete("{id}")]
-        // public async Task<ActionResult> DeleteBook(int id)
-        // {
-        //     var deleted = await _bookstoreService.DeleteBookAsync(id);
-        //     if (!deleted)
-        //     {
-        //         return NotFound();
-        //     }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteBook(Guid id)
+        {
+            if (id == Guid.Empty)
+                return BadRequest("Invalid Id");
 
-        //     return NoContent();
-        // }
+            var deleted = await _sender.Send(new DeleteBookCommand(id));
+            if(!deleted)
+                return BadRequest("Unable to delete the book");
+
+            return NoContent();
+        }
     }
 }

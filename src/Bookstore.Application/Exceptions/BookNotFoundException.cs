@@ -4,7 +4,7 @@ namespace Bookstore.Application.Exceptions;
 
 public class BookNotFoundException : Exception, IServiceException
 {
-    public HttpStatusCode StatusCode => HttpStatusCode.Conflict;
+    public HttpStatusCode StatusCode => HttpStatusCode.BadRequest;
     public string ErrorMessage => "Duplicate Book";
     public IEnumerable<string>? Errors { get; }
     public BookNotFoundException()

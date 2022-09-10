@@ -67,12 +67,19 @@ public class Repository<Entity> : IRepository<Entity> where Entity : BaseEntity
     #endregion
 
     #region Delete
-    public virtual async Task DeleteAsync(Entity entity)
+    public virtual async Task<bool> DeleteAsync(Entity entity)
     {
         if (entity == null)
             throw new ArgumentNullException(nameof(entity));
-        Entities.Remove(entity);
-        await _dbContext.SaveChangesAsync();
+        try{
+            Entities.Remove(entity);
+            await _dbContext.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+        return true;
     }
     #endregion
 
