@@ -1,11 +1,10 @@
-using Bookstore.Application.Extensions;
 using FluentValidation;
 
 namespace Bookstore.Application.Commands;
 
-public class CreateBookCommandValidator : AbstractValidator<CreateBookCommand>
+public class UpdateBookCommandValidator : AbstractValidator<UpdateBookCommand>
 {
-    public CreateBookCommandValidator()
+    public UpdateBookCommandValidator()
     {
         RuleFor(x => x.Request).SetValidator(new BookstoreRequestValidator());
     }

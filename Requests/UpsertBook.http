@@ -4,10 +4,10 @@ PUT https://localhost:7257/api/bookstore/{{id}}
 Content-Type: application/json
 
 {
-    "title" : "title1",
+    "title" : "title11",
     "author" : "Sarwan Surchi",
     "description" : "title2 description",
     "CoverImageUrl" : "cover image url",
     "BookUrl" : "book url",
-    "publishDate" : "2022-09-11"
+    "publishDate" : "2022-09-10"
 }
