@@ -5,15 +5,20 @@ using MapsterMapper;
 using System.Reflection;
 using Bookstore.Application.ValidationBehavior;
 using FluentValidation;
+using Bookstore.Contracts.Settings;
+using Microsoft.Extensions.Configuration;
+using Nest;
+using Bookstore.Domain.Entities;
 
 namespace Bookstore.Application;
 
 public static class DependencyInjection{
-    public static IServiceCollection AddApplication(this IServiceCollection services)
+    public static IServiceCollection AddApplication(this IServiceCollection services, AppSettings settings)
     {
         services.AddMediatR(typeof(DependencyInjection).Assembly);
         services.ConfigureMapster();
         services.ConfigurePipelineBehaviour();
+        services.ConfigureElasticsearch(settings.ElasticsearchSettings);
         return services;
     }
     public static IServiceCollection ConfigureMapster(this IServiceCollection services)
@@ -30,6 +35,26 @@ public static class DependencyInjection{
     {
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        return services;
+    }
+    public static IServiceCollection ConfigureElasticsearch(
+        this IServiceCollection services,
+        ElasticSearchSettings elasticSearchSettings)
+    {
+        var settings = new ConnectionSettings(new Uri(elasticSearchSettings.Url))
+        .BasicAuthentication(elasticSearchSettings.User, elasticSearchSettings.Password)
+                .PrettyJson()
+                .DefaultIndex("csv-index")
+                .DefaultMappingFor<Book>(m => m);
+
+            var client = new ElasticClient(settings);
+
+            services.AddSingleton<IElasticClient>(client);
+
+            client.Indices.Create(elasticSearchSettings.Index, c => c
+                .Map<Book>(m => m.AutoMap())
+            );
+
         return services;
     }
 }

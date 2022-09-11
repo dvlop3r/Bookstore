@@ -12,7 +12,7 @@ var appSettings = builder.Configuration.Get<AppSettings>();
 
 builder.Services.AddPresentation(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration, appSettings);
-builder.Services.AddApplication();
+builder.Services.AddApplication(appSettings);
 
 var app = builder.Build();
 
