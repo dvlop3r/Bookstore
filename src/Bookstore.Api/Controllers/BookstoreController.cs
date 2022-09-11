@@ -1,7 +1,6 @@
 using Bookstore.Application.Commands;
 using Bookstore.Application.Queries;
 using Bookstore.Contracts.Models;
-using Bookstore.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
