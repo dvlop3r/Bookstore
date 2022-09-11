@@ -6,6 +6,7 @@ using Bookstore.Domain.Entities;
 using Mapster;
 using MapsterMapper;
 using MediatR;
+using Nest;
 
 namespace Bookstore.Application.Commands;
 
@@ -13,11 +14,13 @@ public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, bool>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly IElasticClient _elasticClient;
 
-    public UpdateBookCommandHandler(IMapper mapper, IUnitOfWork unitOfWork)
+    public UpdateBookCommandHandler(IMapper mapper, IUnitOfWork unitOfWork, IElasticClient elasticClient)
     {
         _mapper = mapper;
         _unitOfWork = unitOfWork;
+        _elasticClient = elasticClient;
     }
 
     public async Task<bool> Handle(UpdateBookCommand command, CancellationToken cancellationToken)
@@ -39,6 +42,11 @@ public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, bool>
 
         // Update book
         var updated = await _unitOfWork.Books.UpdateAsync(bookToUpdate, true);
+
+        // Update book in ElasticSearch
+        var response = _elasticClient.Update<Book>(command.Id, u => u.Doc(bookToUpdate));
+        if (!response.IsValid)
+            throw new DatabaseErrorException("Error updating book in ElasticSearch");
 
         return updated;
     }

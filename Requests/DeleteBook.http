@@ -1,2 +1,2 @@
-@id=687d7935-0a6a-403b-87a0-dae5bdbaf025
+@id=61aa8864-330c-4717-b9e4-abbb63e4ef17
 DELETE https://localhost:7257/api/bookstore/{{id}}

@@ -1,13 +1,13 @@
-@id=8bfb0dda-05ae-4519-a319-396ad6b4a07f
+@id=61aa8864-330c-4717-b9e4-abbb63e4ef17
 
 PUT https://localhost:7257/api/bookstore/{{id}}
 Content-Type: application/json
 
 {
     "title" : "title1",
-    "author" : "Sarwan",
+    "author" : "Saro",
     "description" : "title2 description",
     "CoverImageUrl" : "cover image url",
     "BookUrl" : "book url",
-    "publishDate" : "2022-09-11"
+    "publishDate" : "2022-09-12"
 }
