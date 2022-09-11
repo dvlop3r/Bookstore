@@ -22,6 +22,7 @@ body {
 }
 
 .books table {
+    margin-top: 10px;
     border-collapse: collapse;
     width: 80%;
     font-size: 14px;

@@ -25,6 +25,9 @@
                 <td>@book.PublishDate</td>
                 <td>@book.Updated</td>
                 <td>
+                    <a href="">Image</a>
+                </td>
+                <td>
                     <a href="">Update</a>
                     <a href="">Delete</a>
                     <a href=""></a>
@@ -32,4 +35,7 @@
             </tr>
         } 
     </table>
+    <div>
+        <a href="@Url.Action("create","home")">Create book</a>
+    </div>
 </div>
