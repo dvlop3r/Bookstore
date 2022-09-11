@@ -5,7 +5,8 @@
             // Use IntelliSense to find out which attributes exist for C# debugging
             // Use hover for the description of the existing attributes
             // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
-            "name": ".NET Core Launch (web)",
+            // "name": ".NET Core Launch (web)",
+            "name": "Api",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
@@ -15,10 +16,36 @@
             "cwd": "${workspaceFolder}/src/Bookstore.Api",
             "stopAtEntry": false,
             // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
-            // "serverReadyAction": {
-            //     "action": "openExternally",
-            //     "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            // },
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+        {
+            // Use IntelliSense to find out which attributes exist for C# debugging
+            // Use hover for the description of the existing attributes
+            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+            // "name": ".NET Core Launch (web)",
+            "name": "Client",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/src/Bookstore.Client/bin/Debug/net6.0/Bookstore.Client.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/Bookstore.Client",
+            "stopAtEntry": false,
+            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
@@ -31,5 +58,13 @@
             "type": "coreclr",
             "request": "attach"
         }
-    ]
+    ],
+    "compounds": [
+        {
+          "name": "Api/Client",
+          "configurations": ["Api", "Client"],
+          "preLaunchTask": "${defaultBuildTask}",
+          "stopAll": true
+        }
+      ]
 }
