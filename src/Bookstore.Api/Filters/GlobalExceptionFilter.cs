@@ -1,5 +1,6 @@
 using System.Net;
 using Bookstore.Application.Exceptions;
+using Bookstore.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
