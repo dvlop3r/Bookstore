@@ -8,10 +8,10 @@ public static class ConfigureServices
     {
         services.AddSingleton<IBookService,BookService>();
 
-        // services.AddHttpClient<IBookService, BookService>(client =>
-        // {
-        //     client.BaseAddress = new Uri("https://localhost:7257/api/");
-        // });
+        services.AddHttpClient<IBookService, BookService>(client =>
+        {
+            client.BaseAddress = new Uri("https://localhost:7257/api/");
+        });
         return services;
     }
 }

@@ -18,12 +18,9 @@ public class BookService : IBookService
     {
         _baseUrl += "bookstore";
         var response = _httpClient.GetAsync(_baseUrl).Result;
-        if (response.IsSuccessStatusCode)
-        {
-            var books = response.Content.ReadFromJsonAsync<IEnumerable<BookViewModel>>().Result;
-            return await Task.FromResult(books);
-        }
-        throw new NotImplementedException();
+        var books = await response.Content.ReadFromJsonAsync<IEnumerable<BookViewModel>>();
+        //if (response.IsSuccessStatusCode)
+            return books ?? new List<BookViewModel>();
     }
     public Task<BookViewModel> GetBookAsync(Guid id)
     {

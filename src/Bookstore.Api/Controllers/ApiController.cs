@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 namespace Bookstore.Api.Controllers;
 
 [ApiController]
-// [Produces("application/json")]
-// [Consumes("application/json")]
+[Produces("application/json")]
+[Consumes("application/json")]
 // [GlobalExceptionFilter] //handled by exception middleware
 public class ApiController : ControllerBase
 {
