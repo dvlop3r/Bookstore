@@ -1,5 +1,6 @@
 using Bookstore.Client.Models;
 using Bookstore.Client.Services;
+using Bookstore.Client.Settings;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
@@ -9,16 +10,20 @@ namespace Bookstore.Client;
 public class BookService : IBookService
 {
     private readonly HttpClient _httpClient;
-    private string _baseUrl = "https://localhost:44336/api/";
+    private readonly IOptions<AppSettings> _settings;
 
-    public BookService(HttpClient httpClient)
+    public BookService(HttpClient httpClient, IOptions<AppSettings> settings)
     {
         _httpClient = httpClient;
+        _settings = settings;
     }
+
+    private string? _baseUrl;
+    private string BaseUrl => _baseUrl ?? (_baseUrl = _settings.Value.Services.ApiUrl);
+
     public async Task<IEnumerable<BookViewModel>> GetBooksAsync()
     {
-        _baseUrl += "bookstore";
-        var response = _httpClient.GetAsync(_baseUrl).Result;
+        var response = _httpClient.GetAsync(BaseUrl).Result;
         var books = await response.Content.ReadFromJsonAsync<IEnumerable<BookViewModel>>();
 
         return books ?? new List<BookViewModel>();
