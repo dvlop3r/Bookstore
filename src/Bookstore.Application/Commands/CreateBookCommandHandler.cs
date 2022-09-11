@@ -7,6 +7,7 @@ using Mapster;
 using MapsterMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Nest;
 
 namespace Bookstore.Application.Commands;
 
@@ -14,11 +15,13 @@ public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, Books
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly IElasticClient _elasticClient;
 
-    public CreateBookCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    public CreateBookCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, IElasticClient elasticClient)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _elasticClient = elasticClient;
     }
     public async Task<BookstoreResult> Handle(CreateBookCommand command, CancellationToken cancellationToken)
     {
@@ -42,6 +45,11 @@ public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, Books
             throw new DatabaseErrorException("Error adding book to database");
 
         await _unitOfWork.CompleteAsync();
+
+        // Add book to elasticsearch
+        var response = await _elasticClient.IndexDocumentAsync(book);
+        if (!response.IsValid)
+            throw new DatabaseErrorException("Error adding book to elasticsearch");
 
         var result = _mapper.Map<BookstoreResult>(book);
 
