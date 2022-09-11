@@ -20,3 +20,9 @@ body {
 .books{
   margin-left: 10px;
 }
+
+.books table {
+    border-collapse: collapse;
+    width: 80%;
+    font-size: 14px;
+}

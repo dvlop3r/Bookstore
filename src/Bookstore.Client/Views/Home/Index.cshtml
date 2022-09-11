@@ -8,23 +8,27 @@
     <h4>List of available books</h4>
      <table>
         <tr>
-            <th>Id</th>
             <th>Title</th>
             <th>Author</th>
             <th>Description</th>
             <th>Published date</th>
             <th>Last updated</th>
             <th>Cover image</th>
+            <th>Actions</th>
         </tr>
         @foreach (var book in Model)
         {
             <tr>
-                <td>@book.Id</td>
                 <td>@book.Title</td>
                 <td>@book.Author</td>
                 <td>@book.Description</td>
                 <td>@book.PublishDate</td>
                 <td>@book.Updated</td>
+                <td>
+                    <a href="">Update</a>
+                    <a href="">Delete</a>
+                    <a href=""></a>
+                </td>
             </tr>
         } 
     </table>

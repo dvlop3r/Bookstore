@@ -8,7 +8,7 @@ public class BookService : IBookService
 {
     private readonly HttpClient _httpClient;
     // private readonly IOptions<AppSettings> _appSettings;
-    private string _baseUrl = "https://localhost:7257/api/";
+    private string _baseUrl = "https://localhost:44336/api/";
 
     public BookService(HttpClient httpClient)
     {
