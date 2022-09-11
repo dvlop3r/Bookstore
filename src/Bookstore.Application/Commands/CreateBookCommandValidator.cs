@@ -15,6 +15,6 @@ public class CreateBookCommandValidator : AbstractValidator<CreateBookCommand>
         RuleFor(x => x.Request.CoverImageUrl).NotEmpty().WithMessage("Book cover image url can not be empty");
         RuleFor(x => x.Request.BookUrl).NotEmpty().WithMessage("Book url can not be empty");;
         RuleFor(x => x.Request.PublishDate)
-            .NotEmpty().Must(x => x >= DateTime.Now).WithMessage("Publish date must be greater than now");
+            .NotEmpty().Must(x => x >= DateTime.Now.Date).WithMessage("Publish date must be greater than now");
     }
 }
