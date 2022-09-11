@@ -1,3 +1,3 @@
-@id=05f222fa-91f9-5591-b676-4242a2ef6855
+@id=6ad1e9c2-6a99-47b1-8661-6b6742e6b456
 
 GET https://localhost:7257/api/bookstore/{{id}}

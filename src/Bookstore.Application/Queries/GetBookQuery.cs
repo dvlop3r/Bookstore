@@ -4,4 +4,4 @@ using MediatR;
 
 namespace Bookstore.Application.Queries;
 
-public record GetBookQuery(Guid Id) : IRequest<BookstoreResult>;
+public record GetBookQuery(Guid? Id) : IRequest<BookstoreResult>;

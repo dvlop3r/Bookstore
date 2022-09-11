@@ -23,11 +23,11 @@ namespace Bookstore.Api.Controllers
             return Ok(books);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<BookstoreResponse>> GetBook(Guid id)
+        [HttpGet("{id?}")]
+        public async Task<ActionResult<BookstoreResponse>> GetBook(Guid? id)
         {
-            if(id == Guid.Empty)
-                return BadRequest("Invalid Id");
+            // if(id == Guid.Empty)
+                // return BadRequest("Invalid Id");
                 
             var result = await _sender.Send(new GetBookQuery(id));
             return Ok(result);
@@ -44,7 +44,7 @@ namespace Bookstore.Api.Controllers
             return CreatedAtAction(nameof(GetBook), new { id = result.Id }, result);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id?}")]
         public async Task<ActionResult> UpdateBook(Guid id, BookstoreRequest book)
         {
             if (id == Guid.Empty || book is null)
@@ -57,11 +57,11 @@ namespace Bookstore.Api.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteBook(Guid id)
+        [HttpDelete("{id?}")]
+        public async Task<ActionResult> DeleteBook(Guid? id)
         {
-            if (id == Guid.Empty)
-                return BadRequest("Invalid Id");
+            // if (id == Guid.Empty)
+                // return BadRequest("Invalid Id");
 
             var deleted = await _sender.Send(new DeleteBookCommand(id));
             if(!deleted)
