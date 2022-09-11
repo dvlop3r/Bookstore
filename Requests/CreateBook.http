@@ -2,10 +2,10 @@ POST https://localhost:7257/api/bookstore
 Content-Type: application/json
 
 {
-    "title" : "title2",
+    "title" : "title1",
     "author" : "Sarwan",
     "description" : "title2 description",
     "CoverImageUrl" : "cover image url",
     "BookUrl" : "book url",
-    "publishDate" : "2022-09-11"
+    "publishDate" : "2022-09-10"
 }
