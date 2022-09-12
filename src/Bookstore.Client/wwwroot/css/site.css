@@ -28,5 +28,36 @@ body {
     font-size: 14px;
 }
 .books .create-book{
-    margin-top:10px;
+    margin-top:5px;
+}
+
+.table-create {
+    font-size: 14px;
+}
+
+.table-create input {
+font-size: 14px;
+width: 50%;
+display: inline;
+}
+
+.table-create tr {
+
+}
+
+.table-create th {
+    width: 8%;
+    height: 5px;
+}
+form button {
+    border: none;
+    padding: 4px 12px 6px 12px;
+    background-color: rgb(37, 113, 212);
+    color: #efeded;
+    border-radius: 3px;
+}
+
+form button:hover {
+    background-color: rgb(34, 105, 198);
+    color: #efeded;
 }
