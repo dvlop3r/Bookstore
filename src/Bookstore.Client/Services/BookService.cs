@@ -35,8 +35,7 @@ public class BookService : IBookService
     }
     public async Task<bool> CreateBookAsync(BookViewModel book)
     {
-        _baseUrl += "bookstore";
-        var content = GetHttpContent(book);
+        var content = GetHttpContent(BaseUrl);
         var response = await _httpClient.PostAsync(_baseUrl, content);
 
         return response.IsSuccessStatusCode;
