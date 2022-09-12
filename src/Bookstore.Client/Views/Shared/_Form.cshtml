@@ -1,0 +1,51 @@
+﻿@model Bookstore.Client.Models.BookViewModel
+
+@{
+    string action = @ViewData["title"].ToString() == "Create book" ? "CreateAsync" : "EditAsync";
+}
+
+@using (Html.BeginForm(FormMethod.Post, new { @action = action }))
+{
+<table class="table-create">
+        @if (action == "EditAsync")
+        {
+            Html.TextBoxFor(x => x.Id, null, new { @type = "hidden" });
+        }
+
+    <tr>
+        <th>Title</th>
+        <td>
+            @Html.TextBoxFor(x => x.Title, null, new { @class = "form-control",placeholder="Type the title of the book" })
+            @Html.ValidationMessageFor(x => x.Title)
+        </td>
+    </tr>
+    <tr>
+        <th>Author</th>
+        <td>
+            @Html.TextBoxFor(x => x.Author, null, new { @class = "form-control", placeholder = "Type author of the book" })
+            @Html.ValidationMessageFor(x => x.Author)
+        </td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td>
+            @Html.TextBoxFor(x => x.Description, null, new { @class = "form-control", placeholder = "Type the desccription of the book" })
+            @Html.ValidationMessageFor(x => x.Description)
+        </td>
+    </tr>
+    <tr>
+        <th>Publish date</th>
+        <td>
+            @Html.EditorFor(x => x.PublishDate, null, new { @class = "form-control"})
+            @Html.ValidationMessageFor(x => x.PublishDate)
+        </td>
+    </tr>
+    @if (action == "CreateAsync")
+    {
+        @await Html.PartialAsync("_File_Slector", Model)
+    }
+    <tr>
+        <th><button>@(@action == "CreateAsync" ? "Create book" : "Update book")</button></th>
+    </tr>
+</table>
+}
