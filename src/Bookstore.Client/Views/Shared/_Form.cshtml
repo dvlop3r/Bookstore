@@ -1,10 +1,10 @@
 ﻿@model Bookstore.Client.Models.BookViewModel
 
 @{
-    string action = @ViewData["title"].ToString() == "Create book" ? "CreateAsync" : "EditAsync";
+    string action = @ViewData["title"].ToString() == "Create book" ? "Create" : "Edit";
 }
 
-@using (Html.BeginForm(FormMethod.Post, new { @action = action }))
+@using (Html.BeginForm(@action, "home", FormMethod.Post, new { enctype = "multipart/form-data"}))
 {
 <table class="table-create">
         @if (action == "EditAsync")
@@ -40,12 +40,12 @@
             @Html.ValidationMessageFor(x => x.PublishDate)
         </td>
     </tr>
-    @if (action == "CreateAsync")
+    @if (action == "Create")
     {
         @await Html.PartialAsync("_File_Slector")
     }
     <tr>
-        <th><button>@(@action == "CreateAsync" ? "Create book" : "Update book")</button></th>
+        <th><button>@(@action == "Create" ? "Create book" : "Update book")</button></th>
     </tr>
 </table>
 }
