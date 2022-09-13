@@ -42,7 +42,7 @@
     </tr>
     @if (action == "CreateAsync")
     {
-        @await Html.PartialAsync("_File_Slector", Model)
+        @await Html.PartialAsync("_File_Slector")
     }
     <tr>
         <th><button>@(@action == "CreateAsync" ? "Create book" : "Update book")</button></th>

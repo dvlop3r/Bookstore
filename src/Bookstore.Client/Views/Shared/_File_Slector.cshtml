@@ -6,12 +6,12 @@
 <tr>
     <th>Cover image</th>
     <td>
-        <input type="file" name="coverImage" />
+        <input asp-for="@Model.File.CoverImageFile" type="file" />
     </td>
 </tr>
 <tr>
     <th>Book upload</th>
     <td>
-        <input type="file" name="bookFile" />
+        <input asp-for="@Model.File.BookFile" type="file" />
     </td>
 </tr>

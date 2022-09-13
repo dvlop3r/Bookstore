@@ -27,8 +27,9 @@ body {
     width: 80%;
     font-size: 14px;
 }
-.books .create-book{
-    margin-top:5px;
+.create{
+    margin-top:1px;
+    margin-left:10px;
 }
 
 .table-create {
@@ -39,22 +40,24 @@ body {
 font-size: 14px;
 width: 50%;
 display: inline;
+    margin-bottom: 5px;
 }
 
 .table-create tr {
-
 }
 
 .table-create th {
     width: 8%;
-    height: 5px;
+    height: 0px;
 }
 form button {
+    margin-top: 5px;
     border: none;
     padding: 4px 12px 6px 12px;
     background-color: rgb(37, 113, 212);
     color: #efeded;
     border-radius: 3px;
+    margin-bottom: 15px;
 }
 
 form button:hover {

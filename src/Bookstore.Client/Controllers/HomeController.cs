@@ -30,7 +30,7 @@ public class HomeController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(BookViewModel model)
+    public async Task<IActionResult> CreateAsync(BookViewModel model)
     {
         if (ModelState.IsValid)
             await _bookService.CreateBookAsync(model);
