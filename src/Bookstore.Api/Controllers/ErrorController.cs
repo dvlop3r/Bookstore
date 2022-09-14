@@ -6,7 +6,6 @@ namespace Bookstore.Api.Controllers;
 
 public class ErrorController : ApiController
 {
-    [HttpGet]
     [Route("/error")]
     public IActionResult Error()
     {

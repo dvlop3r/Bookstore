@@ -1,1 +1,1 @@
-GET https://localhost:7257/api/bookstore
+GET https://localhost:44336/api/bookstore

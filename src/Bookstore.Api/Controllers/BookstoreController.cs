@@ -34,7 +34,7 @@ namespace Bookstore.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BookstoreResponse>> CreateBook(BookstoreRequest request)
+        public async Task<ActionResult<BookstoreResponse>> CreateBook(BookstoreRequest? request=null)
         {
             if(request is null)
                 return BadRequest();

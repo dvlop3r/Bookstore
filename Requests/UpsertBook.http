@@ -1,6 +1,6 @@
 @id=61aa8864-330c-4717-b9e4-abbb63e4ef17
 
-PUT https://localhost:7257/api/bookstore/{{id}}
+PUT https://localhost:44336/api/bookstore/{{id}}
 Content-Type: application/json
 
 {

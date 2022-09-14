@@ -24,6 +24,19 @@ public class HomeController : Controller
     }
 
     [HttpGet]
+    public async Task<IActionResult> GetById(Guid Id)
+    {
+        var book = await _bookService.GetBookAsync(Id);
+        return View(book);
+    }
+
+    [HttpGet]
+    public IActionResult sarwan()
+    {
+        return View();
+    }
+
+    [HttpGet]
     public IActionResult Create()
     {
         return View();
@@ -33,7 +46,17 @@ public class HomeController : Controller
     public async Task<IActionResult> Create(BookViewModel model)
     {
         if (ModelState.IsValid)
-            await _bookService.CreateBookAsync(model);
+        {
+            var book = new BookStoreRequest(
+                Title: model.Title,
+                Author: model.Author,
+                Description: model.Description,
+                PublishDate: model.PublishDate,
+                CoverImageUrl: null,
+                BookUrl: null);
+            
+            await _bookService.CreateBookAsync(book);
+        }
 
         return View(model);
     }

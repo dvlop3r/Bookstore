@@ -1,3 +1,4 @@
+using Bookstore.Application.Exceptions;
 using Bookstore.Application.Interfaces;
 using Bookstore.Application.Models;
 using Bookstore.Domain.Entities;

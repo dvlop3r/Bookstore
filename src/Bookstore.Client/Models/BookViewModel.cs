@@ -14,7 +14,7 @@ public class BookViewModel
     public string? Description { get; set; }
     public string? Author { get; set; }
     [BindProperty]
-    public FileUpload Files { get; set; }
+    public FileUpload? Files { get; set; }
 
     [FutureDate]
     public DateTime PublishDate { get; set; }

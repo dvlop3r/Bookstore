@@ -28,15 +28,16 @@ public class BookService : IBookService
 
         return books ?? new List<BookViewModel>();
     }
-    public Task<BookViewModel> GetBookAsync(Guid id)
+    public async Task<BookViewModel> GetBookAsync(Guid id)
     {
-        _baseUrl += "bookstore";
-        throw new NotImplementedException();
+        var response = _httpClient.GetAsync($"{BaseUrl}/{id}").Result;
+        var book = await response.Content.ReadFromJsonAsync<BookViewModel>();
+        return book;
     }
-    public async Task<bool> CreateBookAsync(BookViewModel book)
+    public async Task<bool> CreateBookAsync(BookStoreRequest book)
     {
         var content = GetHttpContent(BaseUrl);
-        var response = await _httpClient.PostAsync(_baseUrl, content);
+        var response = await _httpClient.PostAsync(BaseUrl, content);
 
         return response.IsSuccessStatusCode;
     }
