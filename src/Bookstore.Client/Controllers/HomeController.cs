@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Bookstore.Client.Models;
 using Bookstore.Client.Services;
+using Microsoft.Extensions.Options;
+using Bookstore.Client.Settings;
 
 namespace Bookstore.Client.Controllers;
 
-public class HomeController : Controller
+public class HomeController : BaseController
 {
     private readonly ILogger<HomeController> _logger;
     private readonly IBookService _bookService;
@@ -19,14 +21,14 @@ public class HomeController : Controller
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        var books = await _bookService.GetBooksAsync();
+        var books = await _bookService.GetBooksAsync(BaseUrl);
         return View(books);
     }
 
     [HttpGet]
     public async Task<IActionResult> GetById(Guid Id)
     {
-        var book = await _bookService.GetBookAsync(Id);
+        var book = await _bookService.GetBookAsync(Id, BaseUrl);
         return View(book);
     }
 
@@ -39,6 +41,8 @@ public class HomeController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(BookViewModel model)
     {
+        ViewBag.Message = Message;
+        
         if (ModelState.IsValid)
         {
             var book = new BookStoreRequest(
@@ -48,9 +52,9 @@ public class HomeController : Controller
                 PublishDate: model.PublishDate,
                 CoverImageUrl: "something",
                 BookUrl: "something");
-            
-           var created = await _bookService.CreateBookAsync(book);
-            ViewBag.Message = created ? "Book added successfully!" : "Failed to add book!";
+
+            var created = await _bookService.CreateBookAsync<BookStoreRequest, BookViewModel>(BaseUrl, book);
+            ViewBag.Message = "Book added successfully!";
         }
 
         return View(model);

@@ -10,37 +10,36 @@ namespace Bookstore.Client;
 public class BookService : IBookService
 {
     private readonly HttpClient _httpClient;
-    private readonly IOptions<AppSettings> _settings;
 
-    public BookService(HttpClient httpClient, IOptions<AppSettings> settings)
+    public BookService(HttpClient httpClient)
     {
         _httpClient = httpClient;
-        _settings = settings;
     }
 
-    private string? _baseUrl;
-    private string BaseUrl => _baseUrl ?? (_baseUrl = _settings.Value.Services.ApiUrl);
-
-    public async Task<IEnumerable<BookViewModel>> GetBooksAsync()
+    public async Task<IEnumerable<BookViewModel>> GetBooksAsync(string baseUrl)
     {
-        var response = _httpClient.GetAsync(BaseUrl).Result;
+        var response = _httpClient.GetAsync(baseUrl).Result;
         var books = await response.Content.ReadFromJsonAsync<IEnumerable<BookViewModel>>();
 
         return books ?? new List<BookViewModel>();
     }
-    public async Task<BookViewModel> GetBookAsync(Guid id)
+    public async Task<BookViewModel?> GetBookAsync(Guid id, string baseUrl)
     {
-        var response = _httpClient.GetAsync($"{BaseUrl}/{id}").Result;
-        var book = await response.Content.ReadFromJsonAsync<BookViewModel>();
+        var response = _httpClient.GetAsync($"{baseUrl}/{id}").Result;
+        BookViewModel? book = await response.Content.ReadFromJsonAsync<BookViewModel>();
         return book;
     }
-    public async Task<bool> CreateBookAsync(BookStoreRequest book)
+    public async Task<R> CreateBookAsync<T,R>(string uri, T model)
     {
-        var content = GetHttpContent(BaseUrl);
-        var url = BaseUrl + "/create";
-        var response = await _httpClient.PostAsync(url, content);
+        var response = await _httpClient.PostAsJsonAsync(uri, model);
+        response.EnsureSuccessStatusCode();
 
-        return response.IsSuccessStatusCode;
+        var responseString = await response.Content.ReadAsStringAsync();
+        var httpResponse = JsonConvert.DeserializeObject<BookHttpResponse<R>>(responseString);
+
+        if(httpResponse.HasError)
+            throw new Exception(httpResponse.Message ?? "Unknown error occured");
+        return httpResponse.Data;
     }
     public Task UpdateBookAsync(BookViewModel book)
     {

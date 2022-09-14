@@ -33,7 +33,7 @@ namespace Bookstore.Api.Controllers
             return Ok(result);
         }
 
-        [HttpPost("create")]
+        [HttpPost]
         public async Task<ActionResult<BookstoreResponse>> CreateBook(BookstoreRequest request)
         {
             if(request is null)
