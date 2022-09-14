@@ -11,24 +11,26 @@ public class HomeController : BaseController
 {
     private readonly ILogger<HomeController> _logger;
     private readonly IBookService _bookService;
+    private readonly IOptions<AppSettings> _appSettings;
 
-    public HomeController(ILogger<HomeController> logger, IBookService bookService)
+    public HomeController(ILogger<HomeController> logger, IBookService bookService, IOptions<AppSettings> settings) : base(settings)
     {
         _logger = logger;
         _bookService = bookService;
+        _appSettings = settings;
     }
 
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        var books = await _bookService.GetBooksAsync(BaseUrl);
+        var books = await _bookService.GetAllAsync(BaseUrl);
         return View(books);
     }
 
     [HttpGet]
     public async Task<IActionResult> GetById(Guid Id)
     {
-        var book = await _bookService.GetBookAsync(Id, BaseUrl);
+        var book = await _bookService.GetAsync(Id, BaseUrl);
         return View(book);
     }
 
@@ -53,7 +55,7 @@ public class HomeController : BaseController
                 CoverImageUrl: "something",
                 BookUrl: "something");
 
-            var created = await _bookService.CreateBookAsync<BookStoreRequest, BookViewModel>(BaseUrl, book);
+            var created = await _bookService.CreateAsync<BookStoreRequest, BookViewModel>(BaseUrl, book);
             ViewBag.Message = "Book added successfully!";
         }
 

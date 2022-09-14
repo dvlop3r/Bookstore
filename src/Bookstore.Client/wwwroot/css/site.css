@@ -3,9 +3,9 @@ html {
     min-height: 100%;
 }
 .body {
-    margin: 0px;
+    margin-left: 0px;
 }
-.create {
+.create, .books {
     margin-left: 10px;
 }
 

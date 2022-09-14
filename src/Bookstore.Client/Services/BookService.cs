@@ -16,20 +16,20 @@ public class BookService : IBookService
         _httpClient = httpClient;
     }
 
-    public async Task<IEnumerable<BookViewModel>> GetBooksAsync(string baseUrl)
+    public async Task<IEnumerable<BookViewModel>> GetAllAsync(string baseUrl)
     {
         var response = _httpClient.GetAsync(baseUrl).Result;
         var books = await response.Content.ReadFromJsonAsync<IEnumerable<BookViewModel>>();
 
         return books ?? new List<BookViewModel>();
     }
-    public async Task<BookViewModel?> GetBookAsync(Guid id, string baseUrl)
+    public async Task<BookViewModel?> GetAsync(Guid id, string baseUrl)
     {
         var response = _httpClient.GetAsync($"{baseUrl}/{id}").Result;
-        BookViewModel? book = await response.Content.ReadFromJsonAsync<BookViewModel>();
+        var book = await response.Content.ReadFromJsonAsync<BookViewModel>();
         return book;
     }
-    public async Task<R> CreateBookAsync<T,R>(string uri, T model)
+    public async Task<R> CreateAsync<T,R>(string uri, T model)
     {
         var response = await _httpClient.PostAsJsonAsync(uri, model);
         response.EnsureSuccessStatusCode();
@@ -41,11 +41,11 @@ public class BookService : IBookService
             throw new Exception(httpResponse.Message ?? "Unknown error occured");
         return httpResponse.Data;
     }
-    public Task UpdateBookAsync(BookViewModel book)
+    public Task UpdateAsync(BookViewModel book)
     {
         throw new NotImplementedException();
     }
-    public Task DeleteBookAsync(Guid id)
+    public Task DeleteAsync(Guid id)
     {
         throw new NotImplementedException();
     }

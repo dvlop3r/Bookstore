@@ -8,10 +8,6 @@ namespace Bookstore.Client.Controllers
     {
         private readonly IOptions<AppSettings> _settings;
 
-        public BaseController()
-        {
-
-        }
         public BaseController(IOptions<AppSettings> settings)
         {
             _settings = settings;
