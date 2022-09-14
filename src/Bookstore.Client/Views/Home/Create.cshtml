@@ -5,9 +5,7 @@
     var message = ViewBag.Message ?? "";
 }
 <div class="create">
+    <p class="message">@message</p>
     <h4>Add a new book</h4>
     @await Html.PartialAsync("_Form")
-</div>
-<div class="result">
-    <h4>@message</h4>
 </div>

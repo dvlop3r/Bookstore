@@ -3,7 +3,6 @@ html {
     min-height: 100%;
 }
 .body {
-    font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
     margin: 0px;
 }
 .create {
@@ -21,9 +20,8 @@ html {
 .create > form {
     width:75%;
     text-align: left;
-    padding:20px;
+    padding:20px 20px 20px 0px;
     margin-top:10px;
-    border:1px solid #efeded;
 }
 form button {
     border: none;
@@ -38,6 +36,7 @@ form button:hover {
 }
 form .table-create {
     font-size:14px;
+    margin-bottom:10px;
 }
 form .table-create input {
     font-size: 14px;
@@ -64,7 +63,7 @@ form .table-create th {
 }
 .table-index {
     border-collapse:collapse;
-    width: 98%;
+    width: 90%;
     font-size:14px;
 }
 .table-index th, td {
@@ -78,14 +77,14 @@ form .table-create th {
     .table-index th:last-child{
         text-align:center;
     }
-    .table-index td:last-child a {
+    .table-index td a {
         text-decoration: none;
         padding: 6.5px 8px 6.5px 8px;
         background-color: rgb(37, 113, 212);
         color: #efeded;
         margin-right: 0.8px;
     }
-    .table-index td:last-child a:hover {
+    .table-index td a:hover {
         background-color: white;
         color: black;
     }

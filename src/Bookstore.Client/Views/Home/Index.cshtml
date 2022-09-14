@@ -6,14 +6,13 @@
 
 <div class="books"">
     <h4>List of available books</h4>
-     <table>
+     <table class="table-index">
         <tr>
             <th>Title</th>
             <th>Author</th>
             <th>Description</th>
             <th>Published date</th>
             <th>Last updated</th>
-            <th>Cover image</th>
             <th>Actions</th>
         </tr>
         @foreach (var book in Model)
@@ -25,12 +24,7 @@
                 <td>@book.PublishDate</td>
                 <td>@book.Updated</td>
                 <td>
-                    <a href="">Image</a>
-                </td>
-                <td>
-                    <a href="">Update</a>
-                    <a href="">Delete</a>
-                    <a href=""></a>
+                    <a href="">Cover image</a><a href="">Book</a><a href="">Edit</a><a href="">Delete</a>
                 </td>
             </tr>
         } 
