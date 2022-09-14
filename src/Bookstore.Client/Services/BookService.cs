@@ -37,7 +37,8 @@ public class BookService : IBookService
     public async Task<bool> CreateBookAsync(BookStoreRequest book)
     {
         var content = GetHttpContent(BaseUrl);
-        var response = await _httpClient.PostAsync(BaseUrl, content);
+        var url = BaseUrl + "/create";
+        var response = await _httpClient.PostAsync(url, content);
 
         return response.IsSuccessStatusCode;
     }

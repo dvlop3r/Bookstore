@@ -31,12 +31,6 @@ public class HomeController : Controller
     }
 
     [HttpGet]
-    public IActionResult sarwan()
-    {
-        return View();
-    }
-
-    [HttpGet]
     public IActionResult Create()
     {
         return View();
@@ -52,10 +46,11 @@ public class HomeController : Controller
                 Author: model.Author,
                 Description: model.Description,
                 PublishDate: model.PublishDate,
-                CoverImageUrl: null,
-                BookUrl: null);
+                CoverImageUrl: "something",
+                BookUrl: "something");
             
-            await _bookService.CreateBookAsync(book);
+           var created = await _bookService.CreateBookAsync(book);
+            ViewBag.Message = created ? "Book added successfully!" : "Failed to add book!";
         }
 
         return View(model);

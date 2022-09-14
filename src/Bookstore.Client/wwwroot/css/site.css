@@ -24,12 +24,16 @@ body {
 .books table {
     margin-top: 10px;
     border-collapse: collapse;
-    width: 80%;
+    width: 100%;
     font-size: 14px;
 }
-.create{
-    margin-top:1px;
-    margin-left:10px;
+.create {
+    margin-top: 1px;
+    margin-left: 10px;
+    float: left;
+    border: 1px solid red;
+    width: 700px;
+    padding:0px;
 }
 
 .table-create {
@@ -38,7 +42,7 @@ body {
 
 .table-create input {
 font-size: 14px;
-width: 50%;
+width: 100%;
 display: inline;
     margin-bottom: 5px;
 }
@@ -66,4 +70,8 @@ form button {
 form button:hover {
     background-color: rgb(34, 105, 198);
     color: #efeded;
+}
+.result {
+    overflow: hidden;
+    border: 1px solid red;
 }
