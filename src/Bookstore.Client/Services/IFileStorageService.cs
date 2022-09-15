@@ -1,6 +1,7 @@
 ﻿namespace Bookstore.Client.Services
 {
-    public class IFileStorageService
+    public interface IFileStorageService
     {
+        Task<string> SaveFileAsync(string fileName, Stream fileStream);
     }
 }
