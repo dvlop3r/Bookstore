@@ -12,12 +12,14 @@ public class HomeController : BaseController
     private readonly ILogger<HomeController> _logger;
     private readonly IBookService _bookService;
     private readonly IOptions<AppSettings> _appSettings;
+    private readonly IFileStorageService _fileStorageService;
 
-    public HomeController(ILogger<HomeController> logger, IBookService bookService, IOptions<AppSettings> settings) : base(settings)
+    public HomeController(ILogger<HomeController> logger, IBookService bookService, IOptions<AppSettings> settings, IFileStorageService fileStorageService) : base(settings)
     {
         _logger = logger;
         _bookService = bookService;
         _appSettings = settings;
+        _fileStorageService = fileStorageService;
     }
 
     [HttpGet]
@@ -55,7 +57,10 @@ public class HomeController : BaseController
 
             var result = await _bookService.CreateAsync<BookStoreRequest, BookStoreResponse, ProblemJson>(BaseUrl, book);
             if (result.Item1 != null)
+            {
+                await _fileStorageService.SaveFilesAsync(model, result.Item1);
                 ViewBag.Message = "Book created successfully";
+            }
             else
                 ViewBag.Errors = result.Item2;
         }
