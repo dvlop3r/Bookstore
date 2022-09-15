@@ -1,6 +1,7 @@
 using Bookstore.Application.Exceptions;
 using Bookstore.Application.Interfaces;
 using Bookstore.Application.Models;
+using Bookstore.Application.Services;
 using Bookstore.Contracts.Models;
 using Bookstore.Contracts.Settings;
 using Bookstore.Domain.Entities;
@@ -18,14 +19,14 @@ public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, Books
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     private readonly IElasticClient _elasticClient;
-    private readonly IOptions<AppSettings> _options;
+    private readonly IStorageService _storageService;
 
-    public CreateBookCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, IElasticClient elasticClient, IOptions<AppSettings> options)
+    public CreateBookCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, IElasticClient elasticClient, IStorageService storageService)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _elasticClient = elasticClient;
-        _options = options;
+        _storageService = storageService;
     }
     public async Task<BookstoreResult> Handle(CreateBookCommand command, CancellationToken cancellationToken)
     {
@@ -43,9 +44,9 @@ public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, Books
             .Map(dest => dest.Created, src => DateTime.Now)
             .Map(dest => dest.Updated, src => DateTime.Now);
         var book = _mapper.Map<Book>(command.Request);
-        
-        var path = System.Environment.GetEnvironmentVariable("USERPROFILE");
-        var filePath = Path.Combine(path, _options.Value.Storage, book.Id.ToString());
+
+        book.CoverImageUrl = await _storageService.GetUserProfilePath(book.Id);
+        book.BookUrl = book.CoverImageUrl;
 
         // Add book to database
         if (await _unitOfWork.Books.addBookAsync(book) is not Book)

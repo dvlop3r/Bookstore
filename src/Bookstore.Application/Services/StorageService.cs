@@ -17,6 +17,6 @@ namespace Bookstore.Application.Services
             _options = options;
         }
 
-        public Task GetUserProfilePath() => await Task.FromResult(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), _options.Value.Storage));
+        public Task<string> GetUserProfilePath(Guid Id) => Task.FromResult(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), _options.Value.Storage, Id.ToString()));
     }
 }

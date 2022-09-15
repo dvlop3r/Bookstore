@@ -6,4 +6,6 @@ namespace Bookstore.Application.Models;
         string Description,
         string CoverImageUrl,
         string BookUrl,
-        DateTime PublishDate);
+        DateTime PublishDate,
+        DateTime Updated,
+        DateTime Created);

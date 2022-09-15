@@ -8,6 +8,6 @@ namespace Bookstore.Application.Services
 {
     public interface IStorageService
     {
-        Task GetUserProfilePath();
+        Task<string> GetUserProfilePath(Guid Id);
     }
 }
