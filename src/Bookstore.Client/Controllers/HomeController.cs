@@ -51,11 +51,9 @@ public class HomeController : BaseController
                 Title: model.Title,
                 Author: model.Author,
                 Description: model.Description,
-                PublishDate: model.PublishDate,
-                CoverImageUrl: "something",
-                BookUrl: "something");
+                PublishDate: model.PublishDate);
 
-            var created = await _bookService.CreateAsync<BookStoreRequest, BookViewModel>(BaseUrl, book);
+            var created = await _bookService.CreateAsync<BookStoreRequest, BookStoreResponse>(BaseUrl, book);
             ViewBag.Message = "Book added successfully!";
         }
 

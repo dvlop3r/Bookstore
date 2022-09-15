@@ -32,14 +32,15 @@ public class BookService : IBookService
     public async Task<R> CreateAsync<T,R>(string uri, T model)
     {
         var response = await _httpClient.PostAsJsonAsync(uri, model);
-        response.EnsureSuccessStatusCode();
+        if (response.IsSuccessStatusCode)
+        {
+            var created = await response.Content.ReadFromJsonAsync<R>();
+        }
 
         var responseString = await response.Content.ReadAsStringAsync();
-        var httpResponse = JsonConvert.DeserializeObject<BookHttpResponse<R>>(responseString);
+        var problemJson = JsonConvert.DeserializeObject<ProblemJson>(responseString);
 
-        if(httpResponse.HasError)
-            throw new Exception(httpResponse.Message ?? "Unknown error occured");
-        return httpResponse.Data;
+        throw new Exception(problemJson.Title);
     }
     public Task UpdateAsync(BookViewModel book)
     {
