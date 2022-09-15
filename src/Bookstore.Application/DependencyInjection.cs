@@ -9,6 +9,7 @@ using Bookstore.Contracts.Settings;
 using Microsoft.Extensions.Configuration;
 using Nest;
 using Bookstore.Domain.Entities;
+using Bookstore.Application.Services;
 
 namespace Bookstore.Application;
 
@@ -19,6 +20,7 @@ public static class DependencyInjection{
         services.ConfigureMapster();
         services.ConfigurePipelineBehaviour();
         services.ConfigureElasticsearch(settings.ElasticsearchSettings);
+        services.ConfigureStorage();
         return services;
     }
     public static IServiceCollection ConfigureMapster(this IServiceCollection services)
@@ -52,6 +54,11 @@ public static class DependencyInjection{
 
             client.Indices.Create(elasticSearchSettings.IndexName, index => index.Map<Book>(m => m.AutoMap()));
 
+        return services;
+    }
+    public static IServiceCollection ConfigureStorage(this IServiceCollection services)
+    {
+        services.AddSingleton<IStorageService, StorageService>();
         return services;
     }
 }
