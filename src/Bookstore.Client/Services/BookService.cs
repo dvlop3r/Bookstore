@@ -29,18 +29,19 @@ public class BookService : IBookService
         var book = await response.Content.ReadFromJsonAsync<BookViewModel>();
         return book;
     }
-    public async Task<R> CreateAsync<T,R>(string uri, T model)
+    public async Task<(R?,E?)> CreateAsync<T, R, E>(string uri, T model)
     {
         var response = await _httpClient.PostAsJsonAsync(uri, model);
         if (response.IsSuccessStatusCode)
         {
-            var created = await response.Content.ReadFromJsonAsync<R>();
+            var book = await response.Content.ReadFromJsonAsync<R>();
+            return (book, default);
         }
-
-        var responseString = await response.Content.ReadAsStringAsync();
-        var problemJson = JsonConvert.DeserializeObject<ProblemJson>(responseString);
-
-        throw new Exception(problemJson.Title);
+        else
+        {
+            var error = await response.Content.ReadFromJsonAsync<E>();
+            return (default, error);
+        }
     }
     public Task UpdateAsync(BookViewModel book)
     {

@@ -53,7 +53,7 @@ public class HomeController : BaseController
                 Description: model.Description,
                 PublishDate: model.PublishDate);
 
-            var created = await _bookService.CreateAsync<BookStoreRequest, BookStoreResponse>(BaseUrl, book);
+            var created = await _bookService.CreateAsync<BookStoreRequest, BookStoreResponse, ProblemJson>(BaseUrl, book);
             ViewBag.Message = "Book added successfully!";
         }
 
