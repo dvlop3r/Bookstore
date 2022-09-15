@@ -21,4 +21,9 @@ public static class ConfigureServices
         services.Configure<AppSettings>(configuration);
         return services;
     }
+    public static IServiceCollection ConfigureStorageServices(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddSingleton<IFileStorageService, FileStorageService>();
+        return services;
+    }
 }

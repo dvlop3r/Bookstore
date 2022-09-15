@@ -4,6 +4,6 @@ namespace Bookstore.Client.Services
 {
     public interface IFileStorageService
     {
-        Task SaveFileAsync(BookViewModel model);
+        Task SaveFilesAsync(BookViewModel model);
     }
 }

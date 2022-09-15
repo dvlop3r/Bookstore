@@ -13,16 +13,19 @@ namespace Bookstore.Client.Services
             _settings = settings;
         }
 
-        public async Task SaveFileAsync(BookViewModel model)
+        public async Task SaveFilesAsync(BookViewModel model)
         {
             var bookFileName = model.Files.BookFile.FileName;
             var coverFileName = model.Files.CoverImageFile.FileName;
             
-            var bookFileNameNew = $"{model.Id}{Path.GetExtension(bookFileName)}";
-            var coverFileNameNew = $"{model.Id}{Path.GetExtension(coverFileName)}";
+            var newBookFileName = $"{"cover"}{Path.GetExtension(bookFileName)}";
+            var newCoverFileName = $"{"book"}{Path.GetExtension(coverFileName)}";
 
-            var bookFilePath = Path.Combine(_settings.Value.Storage, bookFileNameNew);
-            var coverFilePath = Path.Combine(_settings.Value.Storage, coverFileNameNew);
+            var bookFilePath = Path.Combine(_settings.Value.Storage, model.Id.ToString(), newBookFileName);
+            var coverFilePath = Path.Combine(_settings.Value.Storage, model.Id.ToString(), newCoverFileName);
+
+            Directory.CreateDirectory(Path.GetDirectoryName(bookFilePath));
+            Directory.CreateDirectory(Path.GetDirectoryName(coverFilePath));
 
             using (var fileStream = new FileStream(bookFilePath, FileMode.Create))
             {
