@@ -3,4 +3,6 @@ public record BookStoreRequest(
     string Title,
     string Author,
     string Description,
-    DateTime PublishDate);
+    DateTime PublishDate,
+    string? CoverImageUrl,
+    string? BookUrl);

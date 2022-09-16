@@ -1,15 +1,15 @@
 ﻿@model Bookstore.Client.Models.BookViewModel
 
 @{
-    string action = @ViewData["title"].ToString() == "Create book" ? "Create" : "Update";
+    string action = @ViewData["title"].ToString() == "Create book" ? "Create" : "PostUpdate";
 }
 
 @using (Html.BeginForm(@action, "home", FormMethod.Post, new { enctype = "multipart/form-data"}))
 {
 <table class="table-create">
-    @if (action == "Update")
+    @if (action == "PostUpdate")
     {
-        Html.TextBoxFor(x => x.Id, null, new { @type = "hidden" });
+        @Html.TextBoxFor(x => x.Id, null, new { @type = "hidden" });
     }
 
     <tr>

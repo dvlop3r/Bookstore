@@ -19,4 +19,6 @@ public class BookViewModel
     [FutureDate]
     public DateTime PublishDate { get; set; }
     public DateTime Updated { get; set; }
+    public string CoverImageUrl { get; set; }
+    public string BookUrl { get; set; }
 }

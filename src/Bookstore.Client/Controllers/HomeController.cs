@@ -53,7 +53,9 @@ public class HomeController : BaseController
                 Title: model.Title,
                 Author: model.Author,
                 Description: model.Description,
-                PublishDate: model.PublishDate);
+                PublishDate: model.PublishDate,
+                null,
+                null);
 
             var result = await _bookService.CreateAsync<BookStoreRequest, BookStoreResponse, ProblemJson>(BaseUrl, book);
             if (result.Item1 != null)
@@ -69,15 +71,17 @@ public class HomeController : BaseController
         return View(model);
     }
     
-    [HttpGet("{id}")]
-    public async Task<IActionResult> Update(Guid id)
+    [HttpGet]
+    [Route("update")]
+    public async Task<IActionResult> Update(string id)
     {
-        var book = await _bookService.GetAsync(id, BaseUrl);
+        var book = await _bookService.GetAsync(Guid.Parse(id), BaseUrl);
         return View(book);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Update(BookViewModel model)
+    [Route("PostUpdate")]
+    public async Task<IActionResult> PostUpdate(BookViewModel model)
     {
         ViewBag.Message = Message("update");
         
@@ -87,7 +91,9 @@ public class HomeController : BaseController
                 Title: model.Title,
                 Author: model.Author,
                 Description: model.Description,
-                PublishDate: model.PublishDate);
+                PublishDate: model.PublishDate,
+                CoverImageUrl: model.CoverImageUrl,
+                BookUrl: model.BookUrl);
 
             var result = await _bookService.UpdateAsync<BookStoreRequest, BookStoreResponse, ProblemJson>(BaseUrl, book, model.Id);
             if (result.Item1 != null)
@@ -99,7 +105,7 @@ public class HomeController : BaseController
             else
                 ViewBag.Errors = result.Item2;
         }
-        return View(model);
+        return View("update", model);
     }
     public IActionResult Privacy()
     {
