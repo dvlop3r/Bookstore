@@ -26,9 +26,10 @@ public class HomeController : BaseController
     }
 
     [HttpGet]
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string message = "")
     {
         var books = await _bookService.GetAllAsync(BaseUrl);
+        ViewBag.Message = message;
         return View(books);
     }
 
@@ -114,7 +115,8 @@ public class HomeController : BaseController
     public async Task<IActionResult> Delete(Guid id)
     {
         await _bookService.DeleteAsync(BaseUrl, id);
-        return RedirectToAction("Index");
+        ViewBag.Message = "Book deleted successfully!";
+        return RedirectToAction("Index", "home" , new { Message = ViewBag.Message });
     }
     public IActionResult Privacy()
     {

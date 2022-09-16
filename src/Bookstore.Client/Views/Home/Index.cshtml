@@ -2,9 +2,11 @@
 
 @{
     ViewData["Title"] = "Home Page";
+    var message = ViewBag.Message ?? ""; 
 }
 
-<div class="books"">
+<div class="books">
+    <p class="message">@message</p>
     <h4>List of available books</h4>
      <table class="table-index">
         <tr>
