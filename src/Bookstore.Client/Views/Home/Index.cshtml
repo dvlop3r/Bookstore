@@ -26,8 +26,9 @@
                 <td>
                     <a href="">Cover image</a>
                     <a href="">Book</a>
-                    <a href="@Url.Action("update","home", new {id = book.Id})">Edit</a>
-                    <a href="">Delete</a>
+                    <a href="@Url.Action("update", new {id = book.Id})">Edit</a>
+                    <a href="@Url.Action("update", new {id = book.Id})">Go</a>
+                    <a href="@Url.Action("delete", new {id = book.Id})">Delete</a>
                 </td>
             </tr>
         } 

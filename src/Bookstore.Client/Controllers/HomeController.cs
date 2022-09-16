@@ -110,6 +110,12 @@ public class HomeController : BaseController
         }
         return View("update", model);
     }
+    [HttpGet]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        await _bookService.DeleteAsync(BaseUrl, id);
+        return RedirectToAction("Index");
+    }
     public IActionResult Privacy()
     {
         return View();
