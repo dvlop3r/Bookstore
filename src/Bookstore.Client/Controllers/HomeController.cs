@@ -45,7 +45,7 @@ public class HomeController : BaseController
     [HttpPost]
     public async Task<IActionResult> Create(BookViewModel model)
     {
-        ViewBag.Message = Message;
+        ViewBag.Message = Message("create");
         
         if (ModelState.IsValid)
         {
@@ -58,13 +58,46 @@ public class HomeController : BaseController
             var result = await _bookService.CreateAsync<BookStoreRequest, BookStoreResponse, ProblemJson>(BaseUrl, book);
             if (result.Item1 != null)
             {
-                await _fileStorageService.SaveFilesAsync(model, result.Item1);
+                if(model.Files != null)
+                    await _fileStorageService.SaveFilesAsync(model, result.Item1);
                 ViewBag.Message = "Book created successfully";
             }
             else
                 ViewBag.Errors = result.Item2;
         }
 
+        return View(model);
+    }
+    
+    [HttpGet]
+    public IActionResult Update()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Update(BookViewModel model)
+    {
+        ViewBag.Message = Message("update");
+        
+        if (ModelState.IsValid)
+        {
+            var book = new BookStoreRequest(
+                Title: model.Title,
+                Author: model.Author,
+                Description: model.Description,
+                PublishDate: model.PublishDate);
+
+            var result = await _bookService.UpdateAsync<BookStoreRequest, BookStoreResponse, ProblemJson>(BaseUrl, book);
+            if (result.Item1 != null)
+            {
+                if (model.Files != null)
+                    await _fileStorageService.SaveFilesAsync(model, result.Item1);
+                ViewBag.Message = "Book updated successfully";
+            }
+            else
+                ViewBag.Errors = result.Item2;
+        }
         return View(model);
     }
     public IActionResult Privacy()

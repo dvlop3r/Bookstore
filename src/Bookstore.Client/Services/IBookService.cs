@@ -6,6 +6,6 @@ public interface IBookService
     Task<IEnumerable<BookViewModel>> GetAllAsync(string url);
     Task<BookViewModel?> GetAsync(Guid id, string url);
     Task<(R, E)> CreateAsync<T,R,E>(string uri, T model);
-    Task UpdateAsync(BookViewModel book);
+    Task<(R,E)> UpdateAsync<T,R,E>(string uri, T model);
     Task DeleteAsync(Guid id);
 }
