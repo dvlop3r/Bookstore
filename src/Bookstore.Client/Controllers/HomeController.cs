@@ -4,6 +4,7 @@ using Bookstore.Client.Models;
 using Bookstore.Client.Services;
 using Microsoft.Extensions.Options;
 using Bookstore.Client.Settings;
+using MapsterMapper;
 
 namespace Bookstore.Client.Controllers;
 
@@ -13,13 +14,15 @@ public class HomeController : BaseController
     private readonly IBookService _bookService;
     private readonly IOptions<AppSettings> _appSettings;
     private readonly IFileStorageService _fileStorageService;
+    private readonly IMapper _mapper;
 
-    public HomeController(ILogger<HomeController> logger, IBookService bookService, IOptions<AppSettings> settings, IFileStorageService fileStorageService) : base(settings)
+    public HomeController(ILogger<HomeController> logger, IBookService bookService, IOptions<AppSettings> settings, IFileStorageService fileStorageService, IMapper mapper) : base(settings)
     {
         _logger = logger;
         _bookService = bookService;
         _appSettings = settings;
         _fileStorageService = fileStorageService;
+        _mapper = mapper;
     }
 
     [HttpGet]
@@ -95,11 +98,11 @@ public class HomeController : BaseController
                 CoverImageUrl: model.CoverImageUrl,
                 BookUrl: model.BookUrl);
 
-            var result = await _bookService.UpdateAsync<BookStoreRequest, BookStoreResponse, ProblemJson>(BaseUrl, book, model.Id);
+            var result = await _bookService.UpdateAsync<BookStoreRequest, ProblemJson>(BaseUrl, book, model.Id);
             if (result.Item1 != null)
             {
                 if (model.Files != null)
-                    await _fileStorageService.SaveFilesAsync(model, result.Item1);
+                    await _fileStorageService.SaveFilesAsync(model, _mapper.Map<BookStoreResponse>(result.Item1));
                 ViewBag.Message = "Book updated successfully!";
             }
             else

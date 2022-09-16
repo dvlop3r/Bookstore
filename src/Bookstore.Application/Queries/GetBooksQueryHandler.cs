@@ -18,7 +18,7 @@ public class GetBooksQueryHandler : IRequestHandler<GetBooksQuery, IEnumerable<B
     }
     public async Task<IEnumerable<BookstoreResult>> Handle(GetBooksQuery query, CancellationToken cancellationToken)
     {
-        var books = await _unitOfWork.Books.Table.OrderByDescending(x => x.Created).ToListAsync(cancellationToken);
+        var books = await _unitOfWork.Books.Table.OrderByDescending(x => x.Updated).ToListAsync(cancellationToken);
         if(books == null)
             throw new Exception("Books not found");
         return _mapper.Map<IEnumerable<BookstoreResult>>(books);

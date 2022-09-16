@@ -24,7 +24,13 @@ namespace Bookstore.Client.Services
             var bookFilePath = Path.Combine(response.BookUrl, newBookFileName);
             var coverFilePath = Path.Combine(response.CoverImageUrl, newCoverFileName);
 
-            Directory.CreateDirectory(Path.GetDirectoryName(bookFilePath));
+            if (Directory.Exists(Path.GetDirectoryName(bookFilePath)))
+            {
+                Directory.Delete(Path.GetDirectoryName(bookFilePath), true);
+                Directory.CreateDirectory(Path.GetDirectoryName(bookFilePath));
+            }
+            else
+                Directory.CreateDirectory(Path.GetDirectoryName(bookFilePath));
 
             using (var fileStream = new FileStream(bookFilePath, FileMode.Create))
             {
