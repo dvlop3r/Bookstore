@@ -69,10 +69,11 @@ public class HomeController : BaseController
         return View(model);
     }
     
-    [HttpGet]
-    public IActionResult Update()
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Update(Guid id)
     {
-        return View();
+        var book = await _bookService.GetAsync(id, BaseUrl);
+        return View(book);
     }
 
     [HttpPost]
@@ -88,7 +89,7 @@ public class HomeController : BaseController
                 Description: model.Description,
                 PublishDate: model.PublishDate);
 
-            var result = await _bookService.UpdateAsync<BookStoreRequest, BookStoreResponse, ProblemJson>(BaseUrl, book);
+            var result = await _bookService.UpdateAsync<BookStoreRequest, BookStoreResponse, ProblemJson>(BaseUrl, book, model.Id);
             if (result.Item1 != null)
             {
                 if (model.Files != null)
