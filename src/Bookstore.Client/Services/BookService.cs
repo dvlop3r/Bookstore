@@ -56,9 +56,10 @@ public class BookService : IBookService
             return (default, error);
         }
     }
-    public Task DeleteAsync(Guid id)
+    public async Task DeleteAsync(string uri, Guid id)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.DeleteAsync($"{uri}/{id}");
+        response.EnsureSuccessStatusCode();
     }
     private HttpContent GetHttpContent(object obj)
     {
