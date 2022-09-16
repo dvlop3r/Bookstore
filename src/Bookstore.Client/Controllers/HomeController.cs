@@ -118,6 +118,12 @@ public class HomeController : BaseController
         ViewBag.Message = "Book deleted successfully!";
         return RedirectToAction("Index", "home" , new { Message = ViewBag.Message });
     }
+
+    [HttpGet]
+    public async Task<IActionResult> DownloadCoverImage(BookViewModel model)
+    {
+
+    }
     public IActionResult Privacy()
     {
         return View();

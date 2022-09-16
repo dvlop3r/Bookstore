@@ -41,5 +41,10 @@ namespace Bookstore.Client.Services
                 await model.Files.CoverImageFile.CopyToAsync(fileStream);
             }
         }
+        public async Task<File> DownloadImage(BookViewModel model)
+        {
+            var imageBytes = await System.IO.File.ReadAllBytesAsync(model.CoverImageUrl);
+            return File(imageBytes,"")
+        }
     }
 }
