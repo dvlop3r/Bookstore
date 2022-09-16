@@ -120,10 +120,12 @@ public class HomeController : BaseController
     }
 
     [HttpGet]
-    public async Task<IActionResult> DownloadCoverImage(BookViewModel model)
+    public async Task<FileResult> DownloadCoverImage(string filePath)
     {
-
+        var file = await _fileStorageService.DownloadFileAsync(filePath);
+        return File(file.Item1, $"image/{file.Item3}", file.Item2);
     }
+    
     public IActionResult Privacy()
     {
         return View();

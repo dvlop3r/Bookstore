@@ -1,5 +1,6 @@
 ﻿using Bookstore.Client.Models;
 using Bookstore.Client.Settings;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
 namespace Bookstore.Client.Services
@@ -41,10 +42,13 @@ namespace Bookstore.Client.Services
                 await model.Files.CoverImageFile.CopyToAsync(fileStream);
             }
         }
-        public async Task<File> DownloadImage(BookViewModel model)
+        public async Task<(byte[],string,string)> DownloadFileAsync(string filePath)
         {
-            var imageBytes = await System.IO.File.ReadAllBytesAsync(model.CoverImageUrl);
-            return File(imageBytes,"")
+            await Task.CompletedTask;
+            byte[] bytes = System.IO.File.ReadAllBytes(filePath);
+            var fileName = Path.GetFileName(filePath);
+            var extension = Path.GetExtension(filePath);
+            return (bytes, fileName, extension);
         }
     }
 }
