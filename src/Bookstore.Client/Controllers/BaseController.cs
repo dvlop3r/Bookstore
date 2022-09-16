@@ -16,6 +16,6 @@ namespace Bookstore.Client.Controllers
         private string? _baseUrl;
         public string? _message;
         public string BaseUrl => _baseUrl ?? (_baseUrl = _settings.Value.Services.ApiUrl);
-        public string Message => _message ?? (_message = "Failed to add book!");
+        public string Message(string message) => _message ?? (_message = $"Failed to {message} the book!");
     }
 }
