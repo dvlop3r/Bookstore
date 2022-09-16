@@ -16,14 +16,8 @@ namespace Bookstore.Client.Services
 
         public async Task SaveFilesAsync(BookViewModel model, BookStoreResponse response)
         {
-            var bookFileName = model.Files.BookFile.FileName;
-            var coverFileName = model.Files.CoverImageFile.FileName;
-            
-            var newBookFileName = $"{"cover"}{Path.GetExtension(bookFileName)}";
-            var newCoverFileName = $"{"book"}{Path.GetExtension(coverFileName)}";
-
-            var bookFilePath = Path.Combine(response.BookUrl, newBookFileName);
-            var coverFilePath = Path.Combine(response.CoverImageUrl, newCoverFileName);
+            var bookFilePath = response.BookUrl;
+            var coverFilePath = response.CoverImageUrl;
 
             if (Directory.Exists(Path.GetDirectoryName(bookFilePath)))
             {
@@ -35,11 +29,13 @@ namespace Bookstore.Client.Services
 
             using (var fileStream = new FileStream(bookFilePath, FileMode.Create))
             {
-                await model.Files.BookFile.CopyToAsync(fileStream);
+                if (bookFilePath != null)
+                    await model.Files.BookFile.CopyToAsync(fileStream);
             }
-            using (var fileStream = new FileStream(coverFilePath, FileMode.Create))
+            using (var fileStream = File.Create(coverFilePath))
             {
-                await model.Files.CoverImageFile.CopyToAsync(fileStream);
+                if (coverFilePath != null)
+                    await model.Files.CoverImageFile.CopyToAsync(fileStream);
             }
         }
         public async Task<(byte[],string,string)> DownloadFileAsync(Guid id, string path)
