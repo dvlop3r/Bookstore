@@ -1,0 +1,11 @@
+﻿@model Bookstore.Client.Models.BookViewModel
+
+@{
+    ViewData["Title"] = "Update book";
+    var message = ViewBag.Message ?? "";
+}
+<div class="create">
+    <p class="message">@message</p>
+    <h4>Add a new book</h4>
+    @await Html.PartialAsync("_Form")
+</div>

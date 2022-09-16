@@ -60,7 +60,7 @@ public class HomeController : BaseController
             {
                 if(model.Files != null)
                     await _fileStorageService.SaveFilesAsync(model, result.Item1);
-                ViewBag.Message = "Book created successfully";
+                ViewBag.Message = "Book created successfully!";
             }
             else
                 ViewBag.Errors = result.Item2;
@@ -93,7 +93,7 @@ public class HomeController : BaseController
             {
                 if (model.Files != null)
                     await _fileStorageService.SaveFilesAsync(model, result.Item1);
-                ViewBag.Message = "Book updated successfully";
+                ViewBag.Message = "Book updated successfully!";
             }
             else
                 ViewBag.Errors = result.Item2;

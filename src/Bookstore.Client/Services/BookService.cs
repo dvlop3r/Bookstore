@@ -43,9 +43,19 @@ public class BookService : IBookService
             return (default, error);
         }
     }
-    public Task UpdateAsync(BookViewModel book)
+    public async Task<(R?,E?)> UpdateAsync<T,R,E>(string uri, T model, Guid id)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.PutAsJsonAsync($"{uri}/{id}", model);
+        if (response.IsSuccessStatusCode)
+        {
+            var book = await response.Content.ReadFromJsonAsync<R>();
+            return (book, default);
+        }
+        else
+        {
+            var error = await response.Content.ReadFromJsonAsync<E>();
+            return (default, error);
+        }
     }
     public Task DeleteAsync(Guid id)
     {

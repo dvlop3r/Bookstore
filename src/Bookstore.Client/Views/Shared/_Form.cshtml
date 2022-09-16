@@ -1,16 +1,16 @@
 ﻿@model Bookstore.Client.Models.BookViewModel
 
 @{
-    string action = @ViewData["title"].ToString() == "Create book" ? "Create" : "Edit";
+    string action = @ViewData["title"].ToString() == "Create book" ? "Create" : "Update";
 }
 
 @using (Html.BeginForm(@action, "home", FormMethod.Post, new { enctype = "multipart/form-data"}))
 {
 <table class="table-create">
-        @if (action == "EditAsync")
-        {
-            Html.TextBoxFor(x => x.Id, null, new { @type = "hidden" });
-        }
+    @if (action == "Update")
+    {
+        Html.TextBoxFor(x => x.Id, null, new { @type = "hidden" });
+    }
 
     <tr>
         <th>Title</th>
