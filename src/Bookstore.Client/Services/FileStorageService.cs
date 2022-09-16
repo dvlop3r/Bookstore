@@ -42,9 +42,10 @@ namespace Bookstore.Client.Services
                 await model.Files.CoverImageFile.CopyToAsync(fileStream);
             }
         }
-        public async Task<(byte[],string,string)> DownloadFileAsync(string filePath)
+        public async Task<(byte[],string,string)> DownloadFileAsync(Guid id, string path)
         {
             await Task.CompletedTask;
+            var filePath = Path.Combine(path, id.ToString(), path);
             byte[] bytes = System.IO.File.ReadAllBytes(filePath);
             var fileName = Path.GetFileName(filePath);
             var extension = Path.GetExtension(filePath);
