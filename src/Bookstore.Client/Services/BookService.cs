@@ -43,13 +43,12 @@ public class BookService : IBookService
             return (default, error);
         }
     }
-    public async Task<(R?,E?)> UpdateAsync<T,R,E>(string uri, T model, Guid id)
+    public async Task<(T?,E?)> UpdateAsync<T,R,E>(string uri, T model, Guid id)
     {
         var response = await _httpClient.PutAsJsonAsync($"{uri}/{id}", model);
         if (response.IsSuccessStatusCode)
         {
-            var book = await response.Content.ReadFromJsonAsync<R>();
-            return (book, default);
+            return (model, default);
         }
         else
         {
