@@ -7,6 +7,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.ConfigureHttp();
 builder.Services.ConfigureIOptions(builder.Configuration);
 builder.Services.ConfigureStorageServices(builder.Configuration);
+builder.Services.ConfigureMapster();
 
 var app = builder.Build();
 
