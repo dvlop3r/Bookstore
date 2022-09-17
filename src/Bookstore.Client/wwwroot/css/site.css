@@ -113,3 +113,6 @@ form .table-create th {
     border: 1px solid red;
     width: 30%;
 }
+.errors li{
+    color: red;
+}
