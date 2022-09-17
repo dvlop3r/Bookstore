@@ -1,6 +1,7 @@
 using Bookstore.Application.Exceptions;
 using Bookstore.Application.Interfaces;
 using Bookstore.Application.Models;
+using Bookstore.Application.Services;
 using Bookstore.Contracts.Models;
 using Bookstore.Domain.Entities;
 using Mapster;
@@ -15,12 +16,14 @@ public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, Books
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     private readonly IElasticClient _elasticClient;
+    private readonly IStorageService _storageService;
 
-    public UpdateBookCommandHandler(IMapper mapper, IUnitOfWork unitOfWork, IElasticClient elasticClient)
+    public UpdateBookCommandHandler(IMapper mapper, IUnitOfWork unitOfWork, IElasticClient elasticClient, IStorageService storageService)
     {
         _mapper = mapper;
         _unitOfWork = unitOfWork;
         _elasticClient = elasticClient;
+        _storageService = storageService;
     }
 
     public async Task<BookstoreResponse> Handle(UpdateBookCommand command, CancellationToken cancellationToken)
@@ -39,6 +42,11 @@ public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, Books
             .Map(dest => dest.Updated, src => DateTime.Now)
             .Map(dest => dest, src => command.Request);
         var bookToUpdate = _mapper.Map<Book>((command.Request, command.Id));
+
+        if (command.Request.CoverImageUrl != null)
+            bookToUpdate.CoverImageUrl = Path.Combine(await _storageService.GetBookStoragePath(book.Id), command.Request.CoverImageUrl ?? "");
+        if (command.Request.BookUrl != null)
+            bookToUpdate.BookUrl = Path.Combine(await _storageService.GetBookStoragePath(book.Id), command.Request.BookUrl ?? "");
 
         // Update book
         var updated = await _unitOfWork.Books.UpdateAsync(bookToUpdate, true);
