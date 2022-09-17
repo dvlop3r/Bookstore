@@ -22,8 +22,6 @@ public class AppDbContext : DbContext
                 Title = "Clean Code",
                 Author = "Robert C. Martin",
                 Description = "Clean Code desc",
-                CoverImageUrl = "cover image url",
-                BookUrl = "book url",
                 PublishDate = new DateTime(2008, 8, 1),
             },
             new Book
@@ -32,8 +30,6 @@ public class AppDbContext : DbContext
                 Title = "Refactoring",
                 Author = "Martin Fowler",
                 Description = "Refactoring desc",
-                CoverImageUrl = "cover image url",
-                BookUrl = "book url",
                 PublishDate = new DateTime(2018, 7, 8),
             },
             new Book
@@ -42,8 +38,6 @@ public class AppDbContext : DbContext
                 Title = "Domain-Driven Design",
                 Author = "Eric Evans",
                 Description = "Domain-Driven Design desc",
-                CoverImageUrl = "cover image url",
-                BookUrl = "book url",
                 PublishDate = new DateTime(2003, 8, 30),
             }
         );

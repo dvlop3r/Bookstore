@@ -28,15 +28,19 @@ namespace Bookstore.Client.Services
             else
                 Directory.CreateDirectory(Path.GetDirectoryName(bookFilePath));
 
-            using (var fileStream = new FileStream(bookFilePath, FileMode.Create))
+            if (model.Files.BookFile != null)
             {
-                if (bookFilePath != null)
+                using (var fileStream = new FileStream(bookFilePath, FileMode.Create))
+                {
                     await model.Files.BookFile.CopyToAsync(fileStream);
+                }
             }
-            using (var fileStream = File.Create(coverFilePath))
+            if (model.Files.CoverImageFile != null)
             {
-                if (coverFilePath != null)
+                using (var fileStream = File.Create(coverFilePath))
+                {
                     await model.Files.CoverImageFile.CopyToAsync(fileStream);
+                }
             }
         }
         public async Task<(byte[], string, string)> DownloadFileAsync(Guid id, string file)
@@ -44,6 +48,8 @@ namespace Bookstore.Client.Services
             var filesDir = await GetBookStoragePath(id);
             var files = Directory.GetFiles(filesDir);
             var first = files.Where(x => Path.GetFileName(x).StartsWith(file)).FirstOrDefault();
+            if (first is null)
+                return (null, null, null);
             byte[] bytes = File.ReadAllBytes(first);
             //byte[] bytes = Encoding.UTF8.GetBytes(filePath);
             var fileName = Path.GetFileName(first);

@@ -26,9 +26,8 @@
                 <td>@book.PublishDate</td>
                 <td>@book.Updated</td>
                 <td>
-                    <a href="">@(book.CoverImageUrl == null ? "null" : "not null")</a>
                     <a href="@(book.CoverImageUrl != null ? Url.Action("DownloadCoverImage", new {id = book.Id}) : "#")">Cover image</a>
-                    <a href="">Book</a>
+                    <a href="@(book.BookUrl != null ? Url.Action("DownloadBook", new {id = book.Id}) : "#")">Book</a>
                     <a href="@Url.Action("update", new {id = book.Id})">Edit</a>
                     <a href="@Url.Action("delete", new {id = book.Id})">Delete</a>
                 </td>

@@ -125,10 +125,11 @@ public class HomeController : BaseController
     }
 
     [HttpGet]
-    public async Task<FileResult> DownloadCoverImage(Guid id)
+    public async Task<IActionResult> DownloadCoverImage(Guid id)
     {
-
         var file = await _fileStorageService.DownloadFileAsync(id, "cover");
+        if (file.Item1 == null)
+            return RedirectToAction("index");
         //return File(file.Item1, $"image/{file.Item3}", file.Item2);
         return File(file.Item1, "application/octet-stream", file.Item3);
         //return File(binaryData, "text/plain", "hello.txt");
@@ -138,7 +139,10 @@ public class HomeController : BaseController
     public async Task<IActionResult> DownloadBook(Guid id)
     {
         var file = await _fileStorageService.DownloadFileAsync(id, "book");
-        return File(file.Item1, "application/pdf", file.Item2);
+        if (file.Item1 == null)
+            return RedirectToAction("index");
+        //return File(file.Item1, "application/pdf", file.Item2);
+        return File(file.Item1, "application/octet-stream", file.Item3);
     }
     public IActionResult Privacy()
     {
