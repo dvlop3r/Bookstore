@@ -2,6 +2,7 @@
 using Bookstore.Client.Settings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Text;
 
 namespace Bookstore.Client.Services
 {
@@ -38,14 +39,20 @@ namespace Bookstore.Client.Services
                     await model.Files.CoverImageFile.CopyToAsync(fileStream);
             }
         }
-        public async Task<(byte[],string,string)> DownloadFileAsync(string filePath)
+        public async Task<(byte[], string, string)> DownloadFileAsync(Guid id, string file)
         {
             await Task.CompletedTask;
-            var exists = System.IO.File.Exists(filePath);
-            byte[] bytes = System.IO.File.ReadAllBytes(filePath);
+            var filesDir = Path.Combine(_settings.Value.Storage, id.ToString());
+            var files = Directory.GetFiles(filesDir);
+            var filePath = Path.Combine(filesDir, files.First(x => x.StartsWith(file)));
+            byte[] bytes = File.ReadAllBytes(filePath);
+            //byte[] bytes = Encoding.UTF8.GetBytes(filePath);
             var fileName = Path.GetFileName(filePath);
             var extension = Path.GetExtension(filePath);
             return (bytes, fileName, extension);
         }
+        public string GetUserProfilePath() => Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        public Task<string> GetBookStoragePath(Guid Id) => Task.FromResult(Path.Combine(GetUserProfilePath(), _settings.Value.Storage ?? "BookstoreStorage", Id.ToString()));
+
     }
 }

@@ -124,20 +124,21 @@ public class HomeController : BaseController
         return RedirectToAction("Index", "home" , new { Message = ViewBag.Message });
     }
 
-    /*[HttpGet]
-    public async Task<FileResult> DownloadCoverImage(BookViewModel model)
+    [HttpGet]
+    public async Task<FileResult> DownloadCoverImage(Guid id)
     {
-        var file = await _fileStorageService.DownloadFileAsync(model.Id, model.CoverImageUrl);
+        var file = await _fileStorageService.DownloadFileAsync(id, "cover");
         return File(file.Item1, $"image/{file.Item3}", file.Item2);
+        //return File(byteArray, "application/octet-stream", fileName);
+        //return File(binaryData, "text/plain", "hello.txt");
     }
     
     [HttpGet]
-    public async Task<FileResult> DownloadBook(BookViewModel model)
+    public async Task<IActionResult> DownloadBook(Guid id)
     {
-        var filePath = Path.Combine(model.CoverImageUrl, model.Id, );
-        var file = await _fileStorageService.DownloadFileAsync(model.Id, model.CoverImageUrl);
+        var file = await _fileStorageService.DownloadFileAsync(id, "book");
         return File(file.Item1, "application/pdf", file.Item2);
-    }*/
+    }
     public IActionResult Privacy()
     {
         return View();
