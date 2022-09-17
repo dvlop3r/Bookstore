@@ -108,7 +108,7 @@ public class HomeController : BaseController
             if (result.Item1 != null)
             {
                 if (model.Files != null)
-                    await _fileStorageService.SaveFilesAsync(model, _mapper.Map<BookStoreResponse>(result.Item1));
+                    await _fileStorageService.SaveFilesAsync(model, result.Item1);
                 ViewBag.Message = "Book updated successfully!";
             }
             else
