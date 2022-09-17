@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Create book";
     var message = ViewBag.Message != null ? ViewBag.Message : "";
-    var errors = ViewBag.Errors ?? null;
+    var problemJson = ViewBag.Errors ?? null;
 }
 <div class="create">
     <p class="message">@message</p>
@@ -11,9 +11,11 @@
     @await Html.PartialAsync("_Form")
 
     <div class="errors">
-        @if(errors != null)
+        @if(problemJson != null)
         {
-            <p>@errors.Title</p>
+            <p>@problemJson.Title</p>
+            var errors = problemJson.Errors;
+            <p>@errors.Title[0]</p>
         }
     </div>
 </div>

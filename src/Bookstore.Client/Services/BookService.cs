@@ -40,7 +40,6 @@ public class BookService : IBookService
         }
         else
         {
-            var responseString = await response.Content.ReadAsStringAsync();
             var error = await response.Content.ReadFromJsonAsync<E>();
             return (default, error);
         }
