@@ -18,17 +18,20 @@
             <ul>
                 @{
                     var errors = problemJson.Errors;
-                    PropertyInfo[] properties = errors.GetType().GetProperties();
-                    foreach (PropertyInfo property in properties)
+                    if(errors != null)
                     {
-                        if(property.GetValue(errors) != null)
+                        PropertyInfo[] properties = errors.GetType().GetProperties();
+                        foreach (PropertyInfo property in properties)
                         {
-                            foreach (var error in property.GetValue(errors))
+                            if(property.GetValue(errors) != null)
                             {
-                                <li>@error</li>
+                                foreach (var error in property.GetValue(errors))
+                                {
+                                    <li>@error</li>
+                                }
                             }
-                        }
 
+                        }
                     }
                 }
 

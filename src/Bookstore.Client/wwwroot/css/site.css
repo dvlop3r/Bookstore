@@ -22,6 +22,8 @@ html {
     text-align: left;
     padding: 5px 0px 20px 0px;
     float: left;
+    display: inline;
+    border: 1px solid red;
 }
 form button {
     border: none;
@@ -106,4 +108,8 @@ form .table-create th {
     font-weight:bold;
     font-family:sans-serif;
 }
-   
+.errors{
+    float: left;
+    border: 1px solid red;
+    width: 30%;
+}
