@@ -41,8 +41,7 @@ namespace Bookstore.Client.Services
         }
         public async Task<(byte[], string, string)> DownloadFileAsync(Guid id, string file)
         {
-            await Task.CompletedTask;
-            var filesDir = Path.Combine(_settings.Value.Storage, id.ToString());
+            var filesDir = await GetBookStoragePath(id);
             var files = Directory.GetFiles(filesDir);
             var filePath = Path.Combine(filesDir, files.First(x => x.StartsWith(file)));
             byte[] bytes = File.ReadAllBytes(filePath);
