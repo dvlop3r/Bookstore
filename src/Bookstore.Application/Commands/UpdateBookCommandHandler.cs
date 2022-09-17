@@ -23,7 +23,7 @@ public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, bool>
         _elasticClient = elasticClient;
     }
 
-    public async Task<bool> Handle(UpdateBookCommand command, CancellationToken cancellationToken)
+    public async Task<BookstoreResponse> Handle(UpdateBookCommand command, CancellationToken cancellationToken)
     {
         // Ensure command is not null
         if (command.Request == null)
@@ -42,12 +42,14 @@ public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, bool>
 
         // Update book
         var updated = await _unitOfWork.Books.UpdateAsync(bookToUpdate, true);
+        if (updated is not Book b)
+            throw new DatabaseErrorException("Book update failed");
 
         // Update book in ElasticSearch
         var response = _elasticClient.Update<Book>(command.Id, u => u.Doc(bookToUpdate));
         if (!response.IsValid)
             throw new DatabaseErrorException("Error updating book in ElasticSearch");
 
-        return updated;
+        return _mapper.Map<BookstoreResponse>(updated);
     }
 }
