@@ -54,7 +54,7 @@ public class Repository<Entity> : IRepository<Entity> where Entity : BaseEntity
     #endregion
 
     #region Update
-    public virtual async Task<bool> UpdateAsync(Entity entity, bool saveChanges = false)
+    public virtual async Task<Entity> UpdateAsync(Entity entity, bool saveChanges = false)
     {
         if (entity == null)
             throw new ArgumentNullException(nameof(entity));
@@ -69,7 +69,7 @@ public class Repository<Entity> : IRepository<Entity> where Entity : BaseEntity
         {
             throw new Exception(ex.Message);
         }
-        return true;
+        return entity;
     }
     #endregion
 
