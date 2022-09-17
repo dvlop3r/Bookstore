@@ -72,7 +72,7 @@ public class HomeController : BaseController
                 ViewBag.Message = "Book created successfully!";
             }
             else
-                ViewBag.Errors = result.Item2.Errors;
+                ViewBag.Errors = result.Item2;
         }
 
         return View(model);
