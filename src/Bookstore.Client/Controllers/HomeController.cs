@@ -127,9 +127,10 @@ public class HomeController : BaseController
     [HttpGet]
     public async Task<FileResult> DownloadCoverImage(Guid id)
     {
+
         var file = await _fileStorageService.DownloadFileAsync(id, "cover");
-        return File(file.Item1, $"image/{file.Item3}", file.Item2);
-        //return File(byteArray, "application/octet-stream", fileName);
+        //return File(file.Item1, $"image/{file.Item3}", file.Item2);
+        return File(file.Item1, "application/octet-stream", file.Item3);
         //return File(binaryData, "text/plain", "hello.txt");
     }
     

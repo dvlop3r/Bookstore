@@ -3,7 +3,7 @@
 
 @{
     ViewData["Title"] = "Update book";
-    var message = ViewBag.Message ?? "";
+    var message = ViewBag.Message != null ? ViewBag.Message : "";
     var problemJson = ViewBag.Errors ?? null;
 }
 <div class="create">

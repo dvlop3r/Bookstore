@@ -43,12 +43,12 @@ namespace Bookstore.Client.Services
         {
             var filesDir = await GetBookStoragePath(id);
             var files = Directory.GetFiles(filesDir);
-            var filePath = Path.Combine(filesDir, files.First(x => x.StartsWith(file)));
-            byte[] bytes = File.ReadAllBytes(filePath);
+            var first = files.Where(x => Path.GetFileName(x).StartsWith(file)).FirstOrDefault();
+            byte[] bytes = File.ReadAllBytes(first);
             //byte[] bytes = Encoding.UTF8.GetBytes(filePath);
-            var fileName = Path.GetFileName(filePath);
-            var extension = Path.GetExtension(filePath);
-            return (bytes, fileName, extension);
+            var fileName = Path.GetFileName(first);
+            var extension = Path.GetExtension(first);
+            return (bytes, extension, fileName);
         }
         public string GetUserProfilePath() => Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         public Task<string> GetBookStoragePath(Guid Id) => Task.FromResult(Path.Combine(GetUserProfilePath(), _settings.Value.Storage ?? "BookstoreStorage", Id.ToString()));
