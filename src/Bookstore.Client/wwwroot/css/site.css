@@ -7,6 +7,7 @@ html {
 }
 .create, .books {
     margin-left: 10px;
+    position: relative;
 }
 
 .validation-summary-errors li{
@@ -18,7 +19,7 @@ html {
     display:block;
 }
 .create > form {
-    width: 70%;
+    width: 90%;
     text-align: left;
     padding: 5px 0px 20px 0px;
     float: left;
@@ -26,7 +27,7 @@ html {
 }
 form button {
     border: none;
-    padding: 5px;
+    padding: 6px;
     background-color: rgb(37, 113, 212);
     color: #efeded;
     border-radius: 3px;
@@ -36,12 +37,13 @@ form button:hover {
     color: #efeded;
 }
 form .table-create {
-    font-size:14px;
-    margin-bottom:10px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    width: 100%;
 }
 form .table-create input {
     font-size: 14px;
-    width: 55%;
+    width: 60%;
     display:inline;
 }
 form .table-create input[type=checkbox]{
@@ -59,8 +61,8 @@ form .table-create tr {
 
 }
 form .table-create th {
-    width:10%;
-    height:5px;
+    width: 10%;
+    height: 5px;
 }
 .table-index {
     border-collapse:collapse;
@@ -110,6 +112,8 @@ form .table-create th {
 .errors{
     float: left;
     width: 30%;
+    position: absolute;
+    right: 100px;
 }
 .errors li{
     color: red;
