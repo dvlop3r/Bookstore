@@ -3,9 +3,17 @@
 @{
     ViewData["Title"] = "Create book";
     var message = ViewBag.Message != null ? ViewBag.Message : "";
+    var errors = ViewBag.Errors ?? null;
 }
 <div class="create">
     <p class="message">@message</p>
     <h4>Add a new book</h4>
     @await Html.PartialAsync("_Form")
+
+    <div class="errors">
+        @if(errors != null)
+        {
+            <p>@errors.Title</p>
+        }
+    </div>
 </div>

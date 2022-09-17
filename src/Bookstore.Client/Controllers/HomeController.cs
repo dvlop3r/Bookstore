@@ -58,8 +58,11 @@ public class HomeController : BaseController
                 Author: model.Author,
                 Description: model.Description,
                 PublishDate: model.PublishDate,
-                CoverImageUrl: "cover" + Path.GetExtension(model.Files.CoverImageFile.FileName),
-                BookUrl: "book" + Path.GetExtension(model.Files.BookFile.FileName));
+                CoverImageUrl: model.Files?.CoverImageFile != null ? 
+                "cover" + Path.GetExtension(model.Files.CoverImageFile.FileName) : null,
+                BookUrl: model.Files?.BookFile != null ?
+                "book" + Path.GetExtension(model.Files.BookFile.FileName) : null);
+
 
             var result = await _bookService.CreateAsync<BookStoreRequest, BookStoreResponse, ProblemJson>(BaseUrl, book);
             if (result.Item1 != null)

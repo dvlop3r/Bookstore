@@ -35,7 +35,7 @@ public class ApiController : ControllerBase
         var modelStateDictionary = new ModelStateDictionary();
         foreach (var error in validationException?.Errors ?? new List<ValidationFailure>())
         {
-            modelStateDictionary.AddModelError(error.PropertyName, error.ErrorMessage);
+            modelStateDictionary.AddModelError(error.PropertyName.Split('.')[1], error.ErrorMessage);
         }
         return ValidationProblem(modelStateDictionary);
     }

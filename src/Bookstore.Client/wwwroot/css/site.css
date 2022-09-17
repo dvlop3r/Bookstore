@@ -18,9 +18,10 @@ html {
     display:block;
 }
 .create > form {
-    width:75%;
+    width: 95%;
     text-align: left;
-    padding:5px 20px 20px 0px;
+    padding: 5px 20px 20px 0px;
+    border: 1px solid red;
 }
 form button {
     border: none;

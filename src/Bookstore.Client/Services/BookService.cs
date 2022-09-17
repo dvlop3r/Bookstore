@@ -32,6 +32,7 @@ public class BookService : IBookService
     public async Task<(R?,E?)> CreateAsync<T, R, E>(string uri, T model)
     {
         var response = await _httpClient.PostAsJsonAsync(uri, model);
+
         if (response.IsSuccessStatusCode)
         {
             var book = await response.Content.ReadFromJsonAsync<R>();
@@ -39,6 +40,7 @@ public class BookService : IBookService
         }
         else
         {
+            var responseString = await response.Content.ReadAsStringAsync();
             var error = await response.Content.ReadFromJsonAsync<E>();
             return (default, error);
         }

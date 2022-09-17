@@ -45,8 +45,10 @@ public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, Books
             .Map(dest => dest.Updated, src => DateTime.Now);
         var book = _mapper.Map<Book>(command.Request);
 
-        book.CoverImageUrl = Path.Combine(await _storageService.GetBookStoragePath(book.Id), command.Request.CoverImageUrl ?? "");
-        book.BookUrl = Path.Combine(await _storageService.GetBookStoragePath(book.Id), command.Request.BookUrl ?? "");
+        if (command.Request.CoverImageUrl != null)
+            book.CoverImageUrl = Path.Combine(await _storageService.GetBookStoragePath(book.Id), command.Request.CoverImageUrl ?? "");
+        if(command.Request.BookUrl != null)
+            book.BookUrl = Path.Combine(await _storageService.GetBookStoragePath(book.Id), command.Request.BookUrl ?? "");
 
         // Add book to database
         if (await _unitOfWork.Books.addBookAsync(book) is not Book)
