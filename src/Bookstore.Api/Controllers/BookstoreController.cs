@@ -51,10 +51,8 @@ namespace Bookstore.Api.Controllers
                 throw new ArgumentNullException("Book request is null");
 
             var updated = await _sender.Send(new UpdateBookCommand(id, book));
-            if(!updated)
-                return BadRequest("Unable to update book");
 
-            return NoContent();
+            return Ok(updated);
         }
 
         [HttpDelete("{id?}")]

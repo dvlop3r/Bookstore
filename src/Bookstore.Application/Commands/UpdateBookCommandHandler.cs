@@ -10,7 +10,7 @@ using Nest;
 
 namespace Bookstore.Application.Commands;
 
-public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, bool>
+public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, BookstoreResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;

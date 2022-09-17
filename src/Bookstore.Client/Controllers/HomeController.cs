@@ -99,10 +99,12 @@ public class HomeController : BaseController
                 Author: model.Author,
                 Description: model.Description,
                 PublishDate: model.PublishDate,
-                CoverImageUrl: model.CoverImageUrl,
-                BookUrl: model.BookUrl);
+                CoverImageUrl: model.Files?.CoverImageFile != null ?
+                "cover" + Path.GetExtension(model.Files.CoverImageFile.FileName) : model.CoverImageUrl,
+                BookUrl: model.Files?.BookFile != null ?
+                "book" + Path.GetExtension(model.Files.BookFile.FileName) : model.BookUrl);
 
-            var result = await _bookService.UpdateAsync<BookStoreRequest, ProblemJson>(BaseUrl, book, model.Id);
+            var result = await _bookService.UpdateAsync<BookStoreRequest, BookStoreResponse, ProblemJson>(BaseUrl, book, model.Id);
             if (result.Item1 != null)
             {
                 if (model.Files != null)
