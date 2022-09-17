@@ -18,10 +18,10 @@ html {
     display:block;
 }
 .create > form {
-    width: 95%;
+    width: 70%;
     text-align: left;
-    padding: 5px 20px 20px 0px;
-    border: 1px solid red;
+    padding: 5px 0px 20px 0px;
+    float: left;
 }
 form button {
     border: none;
@@ -40,7 +40,7 @@ form .table-create {
 }
 form .table-create input {
     font-size: 14px;
-    width: 50%;
+    width: 55%;
     display:inline;
 }
 form .table-create input[type=checkbox]{
