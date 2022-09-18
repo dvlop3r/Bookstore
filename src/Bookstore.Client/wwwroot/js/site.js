@@ -3,7 +3,6 @@
 
 // Write your JavaScript code.
 
-
 /*function elasticSearch(link) {
     const http = new XMLHttpRequest();
     http.onload = function () {
@@ -16,8 +15,10 @@
 }*/
 
 function elasticSearch(link) {
-    $.get(link.href + "?id=sarwan", function (data) {
-        $(".message").html(data);
+    var title = $(".filter").find("#title-filter").val();
+    var url = link.href + "?title=" + title;
+    $.get(url, function (data) {
+        $("#temp").html(data);
     });
     return false;
 }
