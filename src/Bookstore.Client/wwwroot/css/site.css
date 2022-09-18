@@ -98,6 +98,9 @@ form .table-create th {
     background-color: #ddd;
     transition: 0.1s;
 }
+.table-index td a{
+    margin-right: -3px;
+}
 .action {
     clear: both;
     text-decoration: none;
