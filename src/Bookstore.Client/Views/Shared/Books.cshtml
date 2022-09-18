@@ -1,0 +1,28 @@
+﻿@model IEnumerable<BookViewModel>
+
+    <table class="table-index">
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Description</th>
+            <th>Published date</th>
+            <th>Last updated</th>
+            <th>Actions</th>
+        </tr>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                <td>@book.Description</td>
+                <td>@book.PublishDate</td>
+                <td>@book.Updated</td>
+                <td>
+                    <a href="@(book.CoverImageUrl != null ? Url.Action("DownloadCoverImage", new {id = book.Id}) : "#")">Cover image</a>
+                    <a href="@(book.BookUrl != null ? Url.Action("DownloadBook", new {id = book.Id}) : "#")">Book</a>
+                    <a href="@Url.Action("update", new {id = book.Id})">Edit</a>
+                    <a href="@Url.Action("delete", new {id = book.Id})">Delete</a>
+                </td>
+            </tr>
+        } 
+    </table>

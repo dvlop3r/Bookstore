@@ -5,6 +5,7 @@ using Bookstore.Client.Services;
 using Microsoft.Extensions.Options;
 using Bookstore.Client.Settings;
 using MapsterMapper;
+using Nest;
 
 namespace Bookstore.Client.Controllers;
 
@@ -15,14 +16,22 @@ public class HomeController : BaseController
     private readonly IOptions<AppSettings> _appSettings;
     private readonly IFileStorageService _fileStorageService;
     private readonly IMapper _mapper;
+    private readonly IElasticClient _elasticClient;
 
-    public HomeController(ILogger<HomeController> logger, IBookService bookService, IOptions<AppSettings> settings, IFileStorageService fileStorageService, IMapper mapper) : base(settings)
+    public HomeController(
+        ILogger<HomeController> logger,
+        IBookService bookService,
+        IOptions<AppSettings> settings,
+        IFileStorageService fileStorageService,
+        IMapper mapper,
+        IElasticClient elasticClient) : base(settings)
     {
         _logger = logger;
         _bookService = bookService;
         _appSettings = settings;
         _fileStorageService = fileStorageService;
         _mapper = mapper;
+        _elasticClient = elasticClient;
     }
 
     [HttpGet]
@@ -145,9 +154,14 @@ public class HomeController : BaseController
         return File(file.Item1, "application/octet-stream", file.Item3);
     }
 
-    public async Task<IActionResult> Filter()
+    public async Task<IActionResult> Filter(BookViewModel model)
     {
-        return View();
+        var response = await _elasticClient.SearchAsync<BookStoreResponse>(s =>
+        s.Query(q =>
+        q.Match(m =>
+        m.Field(f => f.Title)
+        .Query(model.Title))));
+        return PartialView("index");
     }
     public IActionResult Privacy()
     {

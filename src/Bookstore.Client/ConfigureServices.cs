@@ -1,8 +1,10 @@
+using Bookstore.Client.Models;
 using Bookstore.Client.Services;
 using Bookstore.Client.Settings;
 using Mapster;
 using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
+using Nest;
 using System.Reflection;
 
 namespace Bookstore.Client;
@@ -39,20 +41,18 @@ public static class ConfigureServices
         services.AddSingleton<IMapper>(mapperConfig);
         return services;
     }
-    public static IServiceCollection ConfigureElasticsearch(
-        this IServiceCollection services,
-        ElasticSearchSettings elasticSearchSettings)
+    public static IServiceCollection ConfigureElasticsearch(this IServiceCollection services, IConfiguration configuration)
     {
+        var elasticSearchSettings = configuration.GetSection("ElasticSearchSettings").Get<ElasticSearchSettings>();
+        
         var settings = new ConnectionSettings(new Uri(elasticSearchSettings.Url))
         .BasicAuthentication(elasticSearchSettings.User, elasticSearchSettings.Password)
                 .PrettyJson()
                 .DefaultIndex(elasticSearchSettings.IndexName)
-                .DefaultMappingFor<Book>(m => m);
+                .DefaultMappingFor<BookStoreResponse>(m => m);
 
         var client = new ElasticClient(settings);
         services.AddSingleton<IElasticClient>(client);
-
-        client.Indices.Create(elasticSearchSettings.IndexName, index => index.Map<Book>(m => m.AutoMap()));
 
         return services;
     }
