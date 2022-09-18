@@ -156,11 +156,11 @@ public class HomeController : BaseController
 
     public async Task<IActionResult> Filter(string title)
     {
-        var response = await _elasticClient.SearchAsync<BookStoreResponse>(s =>
-        s.Query(q =>
-        q.Match(m =>
-        m.Field(f => f.Title)
-        .Query(title))));
+        var response = await _elasticClient.SearchAsync<BookStoreResponse>(s => s
+            .Query(q => q
+                .Wildcard(w => w.Title, $"*{title}*")
+            )
+        );
         var books = _mapper.Map<IEnumerable<BookViewModel>>(response.Documents);
         return PartialView("_Books", books);
     }
