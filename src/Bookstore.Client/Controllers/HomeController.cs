@@ -156,19 +156,6 @@ public class HomeController : BaseController
 
     public async Task<IActionResult> Filter(string title, string author, string description)
     {
-        var match = await _elasticClient.MultiSearchAsync(selector: s => s
-            .Search<BookStoreResponse>(search => search
-            .Query(q => q
-            .Bool(b => b
-            .Should(sh => sh
-            .MultiMatch(m => m
-            .Fields(f => f
-            .Field(f1 => f1.Title)
-            .Field(f2 => f2.Author)
-            .Field(f3 => f3.Description))
-            .Query($"{title} {author} {description}")))))));
-
-
         var fuzziness = await _elasticClient.MultiSearchAsync(selector: ms => ms
         .Search<BookStoreResponse>(s => s
                 .Query(q => q
@@ -183,11 +170,31 @@ public class HomeController : BaseController
                         .Fuzziness(Fuzziness.Auto)
                         .PrefixLength(2)
                         .MaxExpansions(10)
-                        .MinimumShouldMatch(MinimumShouldMatch.Percentage(50))))));
+                        .MinimumShouldMatch(MinimumShouldMatch.Percentage(50)))))
+        .Search<BookStoreResponse>(s => s
+        .Query(q => q
+                    .MultiMatch(mm => mm
+                        .Fields(ff => ff
+                            .Field(f1 => f1.Title)
+                            .Field(f2 => f2.Author)
+                            .Field(f3 => f3.Description))
+                        .Query($"{title} {author} {description}")
+                        .Type(TextQueryType.BestFields)
+                        .Operator(Operator.And)
+                        .Fuzziness(Fuzziness.Auto)
+                        .PrefixLength(2)
+                        .MaxExpansions(10)
+                        .MinimumShouldMatch(MinimumShouldMatch.Percentage(50))))
+        )
+        
+        );
 
+        var bookss = fuzziness.GetResponses<BookStoreResponse>();
+        var or = bookss.First().Documents;
+        var and = bookss.Last().Documents;
 
-        var books = _mapper.Map<IEnumerable<BookViewModel>>(match);
-        return PartialView("_Books", books);
+        var books = _mapper.Map<IEnumerable<BookViewModel>>(or);
+        return PartialView("_Books", books.ToList());
     }
     public IActionResult Privacy()
     {
