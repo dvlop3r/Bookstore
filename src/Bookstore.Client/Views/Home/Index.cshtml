@@ -1,4 +1,4 @@
-﻿@model (IEnumerable<BookViewModel>, BookViewModel)
+﻿@model IEnumerable<BookViewModel>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -6,54 +6,28 @@
 }
 
 <div class="filter">
-    @using (Html.BeginForm("Filter", "Home", FormMethod.Post))
-    {
-        <div class="filter-item">
-            <label for="title">Title</label>
-            <input type="text" asp-for="@Model.Item2.Title" class="form-control" />
-        </div>
-        <div class="filter-item">
-            <label for="author">Author</label>
-            <input type="text" asp-for="@Model.Item2.Author" class="form-control" />
-        </div>
-        <div class="filter-item">
-            <label for="description">Description</label>
-            <input type="text" asp-for="@Model.Item2.Description" class="form-control" />
-        </div>
-        <div class="filter-item">
-            <button>Filter</button>
-        </div>
-    }
+    <div class="filter-item">
+        <label for="title">Title</label>
+        <input type="text" name="title-filter" id="title-filter" class="form-control" />
+    </div>
+    <div class="filter-item">
+        <label for="author">Author</label>
+        <input type="text" name="author-filter" id="author-filter" class="form-control" />
+    </div>
+    <div class="filter-item">
+        <label for="description">Description</label>
+        <input type="text" name="description-filter" id="description-filter" class="form-control" />
+    </div>
+    <div class="filter-item">
+        <a id="sarwan" href="@Url.Action("filter")" onclick="return elasticSearch(this);">Filter</a>
+    </div>
 </div>
 <div class="books">
     <p class="message">@message</p>
     <h4>List of available books</h4>
-     <table class="table-index">
-        <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Description</th>
-            <th>Published date</th>
-            <th>Last updated</th>
-            <th>Actions</th>
-        </tr>
-        @foreach (var book in Model.Item1)
-        {
-            <tr>
-                <td>@book.Title</td>
-                <td>@book.Author</td>
-                <td>@book.Description</td>
-                <td>@book.PublishDate</td>
-                <td>@book.Updated</td>
-                <td>
-                    <a href="@(book.CoverImageUrl != null ? Url.Action("DownloadCoverImage", new {id = book.Id}) : "#")">Cover image</a>
-                    <a href="@(book.BookUrl != null ? Url.Action("DownloadBook", new {id = book.Id}) : "#")">Book</a>
-                    <a href="@Url.Action("update", new {id = book.Id})">Edit</a>
-                    <a href="@Url.Action("delete", new {id = book.Id})">Delete</a>
-                </td>
-            </tr>
-        } 
-    </table>
+     
+    @await Html.PartialAsync("_Books", Model)
+    
     <div class="create-book">
         <a href="@Url.Action("create","home")">Create book</a>
     </div>

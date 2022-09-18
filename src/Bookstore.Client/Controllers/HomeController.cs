@@ -39,7 +39,7 @@ public class HomeController : BaseController
     {
         var books = await _bookService.GetAllAsync(BaseUrl);
         ViewBag.Message = message;
-        return View((books,new BookViewModel()));
+        return View(books);
     }
 
     [HttpGet]
@@ -154,14 +154,14 @@ public class HomeController : BaseController
         return File(file.Item1, "application/octet-stream", file.Item3);
     }
 
-    public async Task<IActionResult> Filter(BookViewModel model)
+    public async Task<IActionResult> Filter(string id)
     {
-        var response = await _elasticClient.SearchAsync<BookStoreResponse>(s =>
+        /*var response = await _elasticClient.SearchAsync<BookStoreResponse>(s =>
         s.Query(q =>
         q.Match(m =>
         m.Field(f => f.Title)
-        .Query(model.Title))));
-        return PartialView("index");
+        .Query(model.Title))));*/
+        return new ContentResult { Content = $"request sent successfully: {id}" };
     }
     public IActionResult Privacy()
     {
