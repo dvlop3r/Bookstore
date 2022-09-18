@@ -154,14 +154,22 @@ public class HomeController : BaseController
         return File(file.Item1, "application/octet-stream", file.Item3);
     }
 
-    public async Task<IActionResult> Filter(string title)
+    public async Task<IActionResult> Filter(string title, string author, string description)
     {
-        var response = await _elasticClient.SearchAsync<BookStoreResponse>(s => s
+        var match = await _elasticClient.MultiSearchAsync(selector: s => s
+            .Search<BookStoreResponse>(search => search
             .Query(q => q
-                .Wildcard(w => w.Title, $"*{title}*")
-            )
-        );
-        var books = _mapper.Map<IEnumerable<BookViewModel>>(response.Documents);
+            .Bool(b => b
+            .Should(sh => sh
+            .MultiMatch(m => m
+            .Fields(f => f
+            .Field(f1 => f1.Title)
+            .Field(f2 => f2.Author)
+            .Field(f3 => f3.Description))
+            .Query($"{title} {author} {description}")))))));
+
+
+        var books = _mapper.Map<IEnumerable<BookViewModel>>(match);
         return PartialView("_Books", books);
     }
     public IActionResult Privacy()
