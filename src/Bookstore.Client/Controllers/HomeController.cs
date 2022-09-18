@@ -154,7 +154,8 @@ public class HomeController : BaseController
         return File(file.Item1, "application/octet-stream", file.Item3);
     }
 
-    public async Task<IActionResult> Filter(string title, string author, string description)
+    [HttpGet]
+    public async Task<IActionResult> ElasticFilter(string title, string author, string description)
     {
         var fuzziness = await _elasticClient.MultiSearchAsync(selector: ms => ms
         .Search<BookStoreResponse>(s => s
@@ -184,17 +185,14 @@ public class HomeController : BaseController
                         .Fuzziness(Fuzziness.Auto)
                         .PrefixLength(2)
                         .MaxExpansions(10)
-                        .MinimumShouldMatch(MinimumShouldMatch.Percentage(50))))
-        )
-        
-        );
+                        .MinimumShouldMatch(MinimumShouldMatch.Percentage(50))))));
 
         var bookss = fuzziness.GetResponses<BookStoreResponse>();
         var or = bookss.First().Documents;
         var and = bookss.Last().Documents;
 
         var books = _mapper.Map<IEnumerable<BookViewModel>>(or);
-        return PartialView("_Books", books.ToList());
+        return PartialView("_Books", books);
     }
     public IActionResult Privacy()
     {
