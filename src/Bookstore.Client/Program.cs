@@ -8,6 +8,7 @@ builder.Services.ConfigureHttp();
 builder.Services.ConfigureIOptions(builder.Configuration);
 builder.Services.ConfigureStorageServices(builder.Configuration);
 builder.Services.ConfigureMapster();
+builder.Services.ConfigureElasticsearch(builder.Configuration);
 
 var app = builder.Build();
 
