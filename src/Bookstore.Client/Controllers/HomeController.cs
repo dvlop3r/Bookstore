@@ -169,6 +169,23 @@ public class HomeController : BaseController
             .Query($"{title} {author} {description}")))))));
 
 
+        var fuzziness = await _elasticClient.MultiSearchAsync(selector: ms => ms
+        .Search<BookStoreResponse>(s => s
+                .Query(q => q
+                    .MultiMatch(mm => mm
+                        .Fields(ff => ff
+                            .Field(f1 => f1.Title)
+                            .Field(f2 => f2.Author)
+                            .Field(f3 => f3.Description))
+                        .Query($"{title} {author} {description}")
+                        .Type(TextQueryType.BestFields)
+                        .Operator(Operator.Or)
+                        .Fuzziness(Fuzziness.Auto)
+                        .PrefixLength(2)
+                        .MaxExpansions(10)
+                        .MinimumShouldMatch(MinimumShouldMatch.Percentage(50))))));
+
+
         var books = _mapper.Map<IEnumerable<BookViewModel>>(match);
         return PartialView("_Books", books);
     }
