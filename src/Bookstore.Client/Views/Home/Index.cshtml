@@ -8,18 +8,19 @@
 <div class="filter">
     <div class="filter-item">
         <label for="title">Title</label>
-        <input type="text" name="title-filter" id="title-filter" class="form-control" />
+        <input type="text" name="title-filter" id="title-filter" class="form-control" placeholder="Type title to filter" />
     </div>
     <div class="filter-item">
         <label for="author">Author</label>
-        <input type="text" name="author-filter" id="author-filter" class="form-control" />
+        <input type="text" name="author-filter" id="author-filter" class="form-control" placeholder="Type author to filter" />
     </div>
     <div class="filter-item">
         <label for="description">Description</label>
-        <input type="text" name="description-filter" id="description-filter" class="form-control" />
+        <input type="text" name="description-filter" id="description-filter" class="form-control" placeholder="Type description to filter" />
     </div>
     <div class="filter-item">
-        <a id="sarwan" href="@Url.Action("ElasticFilter")" onclick="return elasticSearch(this);">Filter</a>
+        <a id="sarwan" href="@Url.Action("ElasticFilter")" onclick="return elasticSearch(this);">Apply filter</a>
+        <a id="sarwan" href="@Url.Action("index")">Clear filter</a>
     </div>
 </div>
 <div class="books">

@@ -130,4 +130,22 @@ form .table-create th {
 .filter .filter-item{
     width: 30%;
     float: left;
+    margin-right: 20px;
+}
+.filter .filter-item:last-child{
+    margin-top: 15px;
+}
+.filter a {
+    text-decoration: none;
+    border: none;
+    text-align: center;
+    padding: 5px 8px 7px 8px;
+    background-color: rgb(37, 113, 212);
+    color: #efeded;
+    border-radius: 3px;
+    font-size:15px;
+}
+.filter a:hover {
+    background-color: rgb(34, 105, 198);
+    color: #efeded;
 }

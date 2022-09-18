@@ -18,7 +18,9 @@ function elasticSearch(filter) {
     var title = $(".filter").find("#title-filter").val();
     var author = $(".filter").find("#author-filter").val();
     var description = $(".filter").find("#description-filter").val();
+
     var url = filter.href + "?title=" + title + "&author=" + author + "&description=" + description;
+
     $.get(url, function (data) {
         $("#indexTable").html(data);
     });
