@@ -30,7 +30,7 @@ public class HomeController : BaseController
     {
         var books = await _bookService.GetAllAsync(BaseUrl);
         ViewBag.Message = message;
-        return View(books);
+        return View((books,new BookViewModel()));
     }
 
     [HttpGet]
@@ -143,6 +143,11 @@ public class HomeController : BaseController
             return RedirectToAction("index");
         //return File(file.Item1, "application/pdf", file.Item2);
         return File(file.Item1, "application/octet-stream", file.Item3);
+    }
+
+    public async Task<IActionResult> Filter()
+    {
+        return View();
     }
     public IActionResult Privacy()
     {

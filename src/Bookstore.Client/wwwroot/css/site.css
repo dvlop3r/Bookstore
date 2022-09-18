@@ -8,6 +8,7 @@ html {
 .create, .books {
     margin-left: 10px;
     position: relative;
+    clear: both;
 }
 
 .validation-summary-errors li{
@@ -61,7 +62,7 @@ form .table-create tr {
 
 }
 form .table-create th {
-    width: 10%;
+    width: 9%;
     height: 5px;
 }
 .table-index {
@@ -120,4 +121,13 @@ form .table-create th {
 }
 .errors li{
     color: red;
+}
+.filter {
+    width: 70%;
+    height: 100px;
+    margin-left: 10px;
+}
+.filter .filter-item{
+    width: 30%;
+    float: left;
 }
