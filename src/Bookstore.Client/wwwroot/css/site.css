@@ -102,6 +102,9 @@ form .table-create th {
 .table-index td a{
     margin-right: -3px;
 }
+.table-index td a:last-child{
+    margin-right: 0px;
+}
 .action {
     clear: both;
     text-decoration: none;
@@ -135,7 +138,7 @@ form .table-create th {
 .filter .filter-item:last-child{
     margin-top: 15px;
 }
-.filter a {
+.filter a, .create-book > a {
     text-decoration: none;
     border: none;
     text-align: center;
@@ -145,7 +148,14 @@ form .table-create th {
     border-radius: 3px;
     font-size:15px;
 }
-.filter a:hover {
+.filter a:hover, .create-book > a:hover {
     background-color: rgb(34, 105, 198);
     color: #efeded;
+}
+.books h4{
+    float: left;
+}
+.create-book {
+    float: right;
+    margin-right: 126px;
 }

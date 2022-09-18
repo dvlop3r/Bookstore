@@ -25,11 +25,14 @@
 </div>
 <div class="books">
     <p class="message">@message</p>
-    <h4>List of available books</h4>
-     
-    @await Html.PartialAsync("_Books", Model)
     
-    <div class="create-book">
+    <h4>List of available books</h4>
+
+     <div class="create-book">
         <a href="@Url.Action("create","home")">Create book</a>
     </div>
+    
+    @await Html.PartialAsync("_Books", Model)
+    
+    
 </div>
