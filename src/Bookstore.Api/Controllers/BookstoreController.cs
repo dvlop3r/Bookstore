@@ -20,7 +20,12 @@ namespace Bookstore.Api.Controllers
             _jwtTokenGenerator = jwtTokenGenerator;
         }
 
+        /// <summary>
+        /// Get all books
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<BookstoreResponse>))]
         public async Task<ActionResult<IEnumerable<BookstoreResponse>>> GetBooks()
         {
             var books = await _sender.Send(new GetBooksQuery());
@@ -28,6 +33,8 @@ namespace Bookstore.Api.Controllers
         }
 
         [HttpGet("{id?}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BookstoreResponse))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(BookstoreResponse))]
         public async Task<ActionResult<BookstoreResponse>> GetBook(Guid? id)
         {
             // if(id == Guid.Empty)
@@ -38,6 +45,8 @@ namespace Bookstore.Api.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(BookstoreResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(BookstoreResponse))]
         public async Task<ActionResult<BookstoreResponse>> CreateBook(BookstoreRequest request)
         {
             if(request is null)
@@ -69,8 +78,9 @@ namespace Bookstore.Api.Controllers
             return NoContent();
         }
 
-        // This is just for testing purposes to get a token
-        // [AllowAnonymous]
+        // Use this endpoint to get a token
+        // This is just for testing purposes
+        [AllowAnonymous]
         [HttpGet("getToken")]
         public IActionResult generateToken(){
             var token = _jwtTokenGenerator.generateToken();

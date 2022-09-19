@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using Bookstore.Api.Filters;
 using Bookstore.Application.Exceptions;
 using FluentValidation;
@@ -10,8 +11,8 @@ namespace Bookstore.Api.Controllers;
 
 // [Authorize]
 [ApiController]
-[Produces("application/json")]
-[Consumes("application/json")]
+[Produces(MediaTypeNames.Application.Json)]
+[Consumes(MediaTypeNames.Application.Json)]
 // [GlobalExceptionFilter] //handled by exception middleware
 public class ApiController : ControllerBase
 {
