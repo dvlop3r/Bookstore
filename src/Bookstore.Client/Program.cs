@@ -1,6 +1,10 @@
 using Bookstore.Client;
+using Bookstore.Client.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton<AppSettings>(builder.Configuration.Get<AppSettings>());
+var appSettings = builder.Configuration.Get<AppSettings>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -9,6 +13,7 @@ builder.Services.ConfigureIOptions(builder.Configuration);
 builder.Services.ConfigureStorageServices(builder.Configuration);
 builder.Services.ConfigureMapster();
 builder.Services.ConfigureElasticsearch(builder.Configuration);
+builder.Services.AddIdentityDbContext(appSettings.DbSettings);
 
 var app = builder.Build();
 

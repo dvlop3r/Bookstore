@@ -56,11 +56,11 @@ public static class ConfigureServices
 
         return services;
     }
-    public static IServiceCollection AddIdentityDbContext(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddIdentityDbContext(this IServiceCollection services, DatabaseSettings dbSettings)
     {
         services.AddDbContext<IdentityDbContext>(options =>
         {
-            options.UseSqlServer(configuration.GetConnectionString("IdentityDbContext"));
+            options.UseSqlServer(dbSettings.IdentityDbContext);
         });
         return services;
     }
