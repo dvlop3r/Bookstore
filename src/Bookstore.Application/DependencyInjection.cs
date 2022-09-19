@@ -70,6 +70,7 @@ public static class DependencyInjection{
     public static IServiceCollection ConfigureAuthentication(this IServiceCollection services, JwtSettings jwtSettings)
     {
         services.AddSingleton<IJwtTokenGenerator,JwtTokenGenerator>();
+        services.AddSingleton<IDateTimeProvider,DateTimeProvider>();
 
         services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters

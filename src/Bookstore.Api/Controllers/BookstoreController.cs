@@ -1,7 +1,9 @@
 using Bookstore.Application.Commands;
+using Bookstore.Application.Interfaces;
 using Bookstore.Application.Queries;
 using Bookstore.Contracts.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bookstore.Api.Controllers
@@ -10,10 +12,12 @@ namespace Bookstore.Api.Controllers
     public class BookstoreController : ApiController
     {
         private readonly ISender _sender;
+        private readonly IJwtTokenGenerator _jwtTokenGenerator;
 
-        public BookstoreController(ISender sender)
+        public BookstoreController(ISender sender, IJwtTokenGenerator jwtTokenGenerator)
         {
             _sender = sender;
+            _jwtTokenGenerator = jwtTokenGenerator;
         }
 
         [HttpGet]
@@ -58,14 +62,19 @@ namespace Bookstore.Api.Controllers
         [HttpDelete("{id?}")]
         public async Task<ActionResult> DeleteBook(Guid? id)
         {
-            // if (id == Guid.Empty)
-                // return BadRequest("Invalid Id");
-
             var deleted = await _sender.Send(new DeleteBookCommand(id));
             if(!deleted)
                 return BadRequest("Unable to delete the book");
 
             return NoContent();
+        }
+
+        // This is just for testing purposes to get a token
+        // [AllowAnonymous]
+        [HttpGet("getToken")]
+        public IActionResult generateToken(){
+            var token = _jwtTokenGenerator.generateToken();
+            return Ok(token);
         }
     }
 }
