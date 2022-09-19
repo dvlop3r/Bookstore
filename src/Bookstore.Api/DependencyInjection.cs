@@ -38,13 +38,13 @@ public static class DependencyInjection
 
         services.AddSwaggerGen(c =>
         {
-            ////Hardcoding api version documentation is not a good practice because
-            ////of multiple versions, we use ConfigureSwaggerOptions class instead"
-            //https://localhost:5001/swagger/index.html?urls.primaryName=V1
-            //c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookstoreWebAPI", Version = "v1" });
-            //c.SwaggerDoc("v2", new OpenApiInfo { Title = "BookstoreWebAPI", Version = "v2" });
+        //Hardcoding api version documentation is not a good practice because
+        //of multiple versions, we use ConfigureSwaggerOptions class instead"
+        https://localhost:5001/swagger/index.html?urls.primaryName=V1
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookstoreWebAPI", Version = "v1" });
+            c.SwaggerDoc("v2", new OpenApiInfo { Title = "BookstoreWebAPI", Version = "v2" });
         });
-        services.ConfigureOptions<ConfigureSwaggerOptions>();
+        //services.ConfigureOptions<ConfigureSwaggerOptions>();
 
 
         return services;
