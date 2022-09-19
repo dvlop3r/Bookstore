@@ -10,6 +10,11 @@ using Microsoft.Extensions.Configuration;
 using Nest;
 using Bookstore.Domain.Entities;
 using Bookstore.Application.Services;
+using Bookstore.Application.Interfaces;
+using BuberDinner.Application.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Bookstore.Application;
 
@@ -21,6 +26,7 @@ public static class DependencyInjection{
         services.ConfigurePipelineBehaviour();
         services.ConfigureElasticsearch(settings.ElasticsearchSettings);
         services.ConfigureStorage();
+        services.ConfigureAuthentication(settings.JwtSettings);
         return services;
     }
     public static IServiceCollection ConfigureMapster(this IServiceCollection services)
@@ -59,6 +65,23 @@ public static class DependencyInjection{
     public static IServiceCollection ConfigureStorage(this IServiceCollection services)
     {
         services.AddSingleton<IStorageService, StorageService>();
+        return services;
+    }
+    public static IServiceCollection ConfigureAuthentication(this IServiceCollection services, JwtSettings jwtSettings)
+    {
+        services.AddSingleton<IJwtTokenGenerator,JwtTokenGenerator>();
+
+        services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtSettings.Issuer,
+            ValidAudience = jwtSettings.Audience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
+        });
         return services;
     }
 }

@@ -20,9 +20,7 @@ public static class DependencyInjection
         services.ConfigureDbContext(appSettings);
         return services;
     }
-    public static IServiceCollection ConfigureDbContext(
-        this IServiceCollection services,
-        AppSettings settings)
+    public static IServiceCollection ConfigureDbContext(this IServiceCollection services, AppSettings settings)
     {
         services.AddDbContext<AppDbContext>(dbContextOptionsBuilder =>
         {
