@@ -3,6 +3,7 @@ using Bookstore.Client.Services;
 using Bookstore.Client.Settings;
 using Mapster;
 using MapsterMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Nest;
 using System.Reflection;
@@ -62,6 +63,9 @@ public static class ConfigureServices
         {
             options.UseSqlServer(dbSettings.IdentityDbContext);
         });
+
+        services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<IdentityDbContext>();
+
         return services;
     }
 }

@@ -23,7 +23,7 @@ namespace Bookstore.Client.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewData["message"] = "Registration failed to complete!";
+                ViewData["message"] = "Account registration failure!";
                 return View(user);
             }
             var identity = new IdentityUser
@@ -39,7 +39,7 @@ namespace Bookstore.Client.Controllers
                 {
                     ModelState.AddModelError("", error);
                 }
-                ViewData["message"] = "Registration failed to complete!";
+                ViewData["message"] = "Account registration failure!";
                 return View(user);
             }
             TempData["message"] = "Account created successfully!";
