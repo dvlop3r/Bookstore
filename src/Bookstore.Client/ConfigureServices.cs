@@ -3,7 +3,7 @@ using Bookstore.Client.Services;
 using Bookstore.Client.Settings;
 using Mapster;
 using MapsterMapper;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using Nest;
 using System.Reflection;
 
@@ -54,6 +54,14 @@ public static class ConfigureServices
         var client = new ElasticClient(settings);
         services.AddSingleton<IElasticClient>(client);
 
+        return services;
+    }
+    public static IServiceCollection AddIdentityDbContext(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddDbContext<IdentityDbContext>(options =>
+        {
+            options.UseSqlServer(configuration.GetConnectionString("IdentityDbContext"));
+        });
         return services;
     }
 }
