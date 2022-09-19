@@ -10,3 +10,11 @@ services:
       dockerfile: src/Bookstore.Api/Dockerfile
     ports:
       - 44336:44336
+    depends_on:
+      - sqlserver
+
+  sqlserver:
+        image: "mcr.microsoft.com/mssql/server"
+        environment:
+            SA_PASSWORD: "Your_password123"
+            ACCEPT_EULA: "Y"

@@ -36,7 +36,7 @@ if (app.Environment.IsDevelopment())
     // Third approach to handle exceptions
     //app.UseMiddleware<ErrorHandlingMiddleware>(); 
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();

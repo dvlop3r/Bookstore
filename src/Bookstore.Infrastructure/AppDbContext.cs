@@ -10,6 +10,10 @@ public class AppDbContext : DbContext
     {
         // Database.EnsureCreated();
     }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        base.OnConfiguring(optionsBuilder);
+    }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.Entity<Book>().HasIndex(b => b.Title);
