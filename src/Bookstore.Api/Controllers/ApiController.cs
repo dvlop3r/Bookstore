@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Bookstore.Api.Controllers;
 
-[Authorize]
+// [Authorize]
 [ApiController]
 [Produces("application/json")]
 [Consumes("application/json")]

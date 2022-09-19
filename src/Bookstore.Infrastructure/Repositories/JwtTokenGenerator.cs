@@ -6,7 +6,7 @@ using Bookstore.Contracts.Settings;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace BuberDinner.Application.Services;
+namespace BuberDinner.Infrastructure.Repositories;
 
 public class JwtTokenGenerator : IJwtTokenGenerator
 {

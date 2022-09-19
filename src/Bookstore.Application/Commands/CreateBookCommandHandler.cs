@@ -1,15 +1,12 @@
 using Bookstore.Application.Exceptions;
 using Bookstore.Application.Interfaces;
 using Bookstore.Application.Models;
-using Bookstore.Application.Services;
 using Bookstore.Contracts.Models;
-using Bookstore.Contracts.Settings;
 using Bookstore.Domain.Entities;
 using Mapster;
 using MapsterMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Nest;
 
 namespace Bookstore.Application.Commands;
