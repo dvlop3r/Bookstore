@@ -1,0 +1,2 @@
+@id = c352f8c0-0074-4e49-afd6-6cdf3328c39a
+GET https://localhost:7173/home/getbyid/{{id}}
