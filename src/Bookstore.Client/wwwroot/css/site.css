@@ -215,14 +215,25 @@ form .authentication-table th {
 .authentication form {
     display: inline;
 }
-.authentication form a, .authentication a{
+.authentication > form > a{
     text-decoration:none;
-    padding:4px 10px 7px 10px;
+    padding:4px 13px 7px 13px;
     background-color: #efeded;
-    color: #434343;
+    color: black;
     border-radius:3px;
 }
 .authentication form a:hover {
+    background-color: #ddd;
+    color: #434343;
+}
+.authentication > .login{
+    text-decoration:none;
+    padding:4px 13px 7px 13px;
+    background-color: #efeded;
+    color: black;
+    border-radius:3px;
+}
+.authentication .login:hover{
     background-color: #ddd;
     color: #434343;
 }
