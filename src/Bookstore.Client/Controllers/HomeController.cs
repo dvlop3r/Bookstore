@@ -6,9 +6,11 @@ using Microsoft.Extensions.Options;
 using Bookstore.Client.Settings;
 using MapsterMapper;
 using Nest;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Bookstore.Client.Controllers;
 
+//[Authorize]
 public class HomeController : BaseController
 {
     private readonly ILogger<HomeController> _logger;

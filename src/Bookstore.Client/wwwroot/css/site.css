@@ -44,7 +44,7 @@ form .table-create {
 }
 form .table-create input {
     font-size: 14px;
-    width: 60%;
+    width: 50%;
     display:inline;
 }
 form .table-create input[type=checkbox]{
