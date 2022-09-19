@@ -1,0 +1,50 @@
+﻿@model Bookstore.Client.Models.Authentication.Register
+
+
+<div class="create">
+
+    @if (ViewData["message"] != null)
+    {
+        <p class="message">@ViewData["message"]</p>
+    }
+
+<h4>Register your identity</h4>
+
+@using (Html.BeginForm())
+{
+    <table class="authentication-table">
+        @Html.ValidationSummary()
+        <tr>
+            <th>Username</th>
+            <td>
+                @Html.TextBoxFor(x => x.Username, null, new { @class = "form-control",placeholder="Type your username" })
+                @Html.ValidationMessageFor(x => x.Username)
+            </td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>
+                @Html.TextBoxFor(x => x.EmailAddress, null, new { @class = "form-control", placeholder = "Type your email address" })
+                @Html.ValidationMessageFor(x => x.EmailAddress)
+            </td>
+        </tr>
+        <tr>
+            <th>Password</th>
+            <td>
+                @Html.PasswordFor(x => x.Password, new { @class = "form-control", placeholder = "Type a strong password" })
+                @Html.ValidationMessageFor(x => x.Password)
+            </td>
+        </tr>
+        <tr>
+            <th>Confirm</th>
+            <td>
+                @Html.PasswordFor(x => x.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm your password" })
+                @Html.ValidationMessageFor(x => x.ConfirmPassword)
+            </td>
+        </tr>
+        <tr>
+            <th><button type="submit">Register</button></th>
+        </tr>
+    </table>
+}
+</div>

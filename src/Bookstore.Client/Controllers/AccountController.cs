@@ -75,9 +75,7 @@ namespace Bookstore.Client.Controllers
         public async Task<IActionResult> Logout(string returnUrl = null)
         {
             await signInManager.SignOutAsync();
-            if (returnUrl == null)
-                return RedirectToAction("index","home");
-            return Redirect(returnUrl);
+            return RedirectToAction("index","home");
         }
     }
 }

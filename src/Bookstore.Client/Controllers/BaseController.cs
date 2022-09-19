@@ -1,9 +1,11 @@
 ﻿using Bookstore.Client.Settings;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
 namespace Bookstore.Client.Controllers
 {
+    [Authorize]
     public class BaseController : Controller
     {
         private readonly IOptions<AppSettings> _settings;

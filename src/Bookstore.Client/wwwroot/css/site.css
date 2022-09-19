@@ -28,7 +28,7 @@ html {
 }
 form button {
     border: none;
-    padding: 6px;
+    padding: 5px 8px 7px 8px;
     background-color: rgb(37, 113, 212);
     color: #efeded;
     border-radius: 3px;
@@ -155,7 +155,74 @@ form .table-create th {
 .books h4{
     float: left;
 }
+.books .message{
+    margin-top:10px;
+}
 .create-book {
     float: right;
     margin-right: 126px;
+}
+
+
+form .authentication-table button {
+    border: none;
+    padding: 5px 15px 7px 15px;
+    background-color: rgb(37, 113, 212);
+    color: #efeded;
+    border-radius: 3px;
+}
+form .authentication-table button:hover {
+    background-color: rgb(34, 105, 198);
+    color: #efeded;
+}
+form .authentication-table {
+    font-size: 14px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+form .authentication-table input {
+    font-size: 14px;
+    width: 50%;
+    display:inline;
+}
+form .authentication-table input[type=checkbox] {
+    display: inline;
+    width: 15px;
+    height: 15px;
+}
+.authentication-table span {
+    font-size: 14px;
+    margin-left: 0px;
+    display: inline;
+    text-align: left;
+}
+form .authentication-table tr {
+}
+form .authentication-table th {
+    width: 7%;
+    height: 5px;
+}
+
+.authentication{
+    float:right;
+    margin-right:20px;
+    margin-top:0px;
+}
+
+.authentication p{
+    display:inline;
+}
+.authentication form {
+    display: inline;
+}
+.authentication form a, .authentication a{
+    text-decoration:none;
+    padding:4px 10px 7px 10px;
+    background-color: #efeded;
+    color: #434343;
+    border-radius:3px;
+}
+.authentication form a:hover {
+    background-color: #ddd;
+    color: #434343;
 }

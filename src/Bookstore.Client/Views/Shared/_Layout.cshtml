@@ -27,6 +27,24 @@
                         </li>
                     </ul>
                 </div>
+
+                <div class="authentication">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    string user = User.Identity.Name;
+
+                    <p>Welcome @user.Substring(0,1).ToUpper()@user.Substring(1, user.Length-1)</p>
+                    @using (Html.BeginForm("logout", "account", FormMethod.Post, new { @id = "logout" }))
+                    {
+                        <a href="javascript: $('#logout').submit()">Logout</a>
+                    }
+                }
+                else
+                {
+                    <a href="@Url.Action("login","account")">Login</a>
+                }
+                </div>
+
             </div>
         </nav>
     </header>
