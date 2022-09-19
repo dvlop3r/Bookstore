@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Bookstore.Client.Models.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using HelloWorld.Models.Authentication;
 
-namespace HelloWorld.Controllers
+namespace Bookstore.Client.Controllers
 {
     public class AccountController : Controller
     {
