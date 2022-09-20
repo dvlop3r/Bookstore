@@ -19,7 +19,7 @@ namespace Bookstore.Client.Controllers
             return View(new Register());
         }
         [HttpPost]
-        public async Task<IActionResult> Register(Register user)
+        public async Task<IActionResult> Register(Register user, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -43,7 +43,7 @@ namespace Bookstore.Client.Controllers
                 return View(user);
             }
             TempData["message"] = "Account created successfully!";
-            return RedirectToAction("Login");
+            return Redirect(returnUrl);
         }
         [HttpGet]
         public IActionResult Login()
@@ -51,7 +51,7 @@ namespace Bookstore.Client.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Login(Login login, string returnUrl = null)
+        public async Task<IActionResult> Login(Login login, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -65,10 +65,6 @@ namespace Bookstore.Client.Controllers
                 return View(login);
             }
             TempData["message"] = "Authentication succeeded!";
-            if (returnUrl == null)
-            {
-                return RedirectToAction("index", "home");
-            }
             return Redirect(returnUrl);
         }
         [HttpPost]
