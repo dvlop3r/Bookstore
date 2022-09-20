@@ -16,7 +16,7 @@ namespace Bookstore.Application;
 public static class DependencyInjection{
     public static IServiceCollection AddApplication(this IServiceCollection services, AppSettings settings)
     {
-        services.AddMediatR(typeof(DependencyInjection).Assembly);
+        services.AddMediatR(Assembly.GetExecutingAssembly());
         services.ConfigureMapster();
         services.ConfigurePipelineBehaviour();
         services.ConfigureElasticsearch(settings.ElasticsearchSettings);
