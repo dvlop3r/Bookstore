@@ -1,4 +1,5 @@
 using Bookstore.Domain.Entities;
+using Bookstore.Infrastructure.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bookstore.Infrastructure;
@@ -10,14 +11,11 @@ public class AppDbContext : DbContext
     {
         // Database.EnsureCreated();
     }
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        base.OnConfiguring(optionsBuilder);
-    }
+    
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.Entity<Book>().HasIndex(b => b.Title);
-        builder.HasDefaultSchema("BS");
+        builder.HasDefaultSchema("default");
         
         builder.Entity<Book>().HasData(
             new Book
@@ -45,5 +43,11 @@ public class AppDbContext : DbContext
                 PublishDate = new DateTime(2003, 8, 30),
             }
         );
+
+        LoadConfigurations(builder);
+    }
+    public static void LoadConfigurations(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfiguration(new BookConfiguration());
     }
 }
