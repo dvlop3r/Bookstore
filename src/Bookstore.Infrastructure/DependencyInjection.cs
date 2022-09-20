@@ -19,7 +19,7 @@ public static class DependencyInjection
         IConfiguration configuration,
         AppSettings appSettings)
     {
-        
+
         services.AddScoped<IBookRepository,BookRepository>();
         services.AddScoped<IUnitOfWork,UnitOfWork>();
         services.ConfigureDbContext(appSettings);
