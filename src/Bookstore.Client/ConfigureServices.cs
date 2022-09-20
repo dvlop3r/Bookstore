@@ -18,7 +18,7 @@ public static class ConfigureServices
 
         services.AddHttpClient<IBookService, BookService>(client =>
         {
-            client.BaseAddress = new Uri("https://localhost:44336/api/bookstore");
+            client.BaseAddress = new Uri("http://bookstoreapi_container:44337/api/bookstore");
         });
         return services;
     }

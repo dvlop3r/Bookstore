@@ -3,20 +3,36 @@
 version: '3.4'
 
 services:
+
+  sqldbase:
+    container_name: sql_dbase
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "Supersecret@2022"
+      ACCEPT_EULA: "Y"
+
   bookstoreapi:
-    image: bookstoreapi
+    container_name: bookstoreapi_container
+    image: bookstoreapi_image
     build:
       context: .
       dockerfile: src/Bookstore.Api/Dockerfile
     ports:
-      - 44336:44336
+      - 44337:44337
     depends_on:
-      - sqlserver
+      - sqldbase
 
-  sqlserver:
-        image: "mcr.microsoft.com/mssql/server:2019-latest"
-        ports:
-            - 1433:1433
-        environment:
-            SA_PASSWORD: "Your_password123"
-            ACCEPT_EULA: "Y"
+  bookstorclient:
+    container_name: bookstoreclient_container
+    image: bookstoreclient_image
+    build:
+      context: .
+      dockerfile: src/Bookstore.Client/Dockerfile
+    ports:
+      - 7174:7174
+    depends_on:
+      - bookstoreapi
+
+  
