@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="assets/CleanArchitecture.png" alt="drawing" width="1000"/>
-
  [![GitHub Stars](https://img.shields.io/github/stars/sarwan/bookstore.svg)](https://github.com/dvlop3r/Bookstore/stargazers) [![GitHub license](https://img.shields.io/github/license/sarwan/bookstore)](https://github.com/dvloper/Bookstore/LICENSE)
 
 ---
