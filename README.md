@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets/CleanArchitecture.PNG" alt="drawing" width="700px"/>
+
  [![GitHub Stars](https://img.shields.io/github/stars/sarwan/bookstore.svg)](https://github.com/dvlop3r/Bookstore/stargazers) [![GitHub license](https://img.shields.io/github/license/sarwan/bookstore)](https://github.com/dvloper/Bookstore/LICENSE)
 
 ---
@@ -11,7 +13,7 @@
 - [Give it a star ⭐!](#give-it-a-star-)
 - [Overview](#overview)
 - [Service Architecture](#service-architecture)
-- [Technologies](#technologies)
+- [Technologies](#fancy-tech-used)
 - [Usage](#usage)
 - [API Definition](#api-definition)
   - [Create Book](#create-Book)
@@ -54,11 +56,13 @@ This is a book store CRUD-based app that helps storing book pdf files along with
 
 <div align="center">
 
-<img src="assets/CleanArchitecture.png" alt="drawing" width="700px"/>
+<img src="assets/CleanArchitecture1.PNG" alt="drawing" width="700px"/>
+
+<img src="assets/CleanArchitecture2.PNG" alt="drawing" width="700px"/>
 
 </div>
 
-# Technologies
+# Fancy tech used
 
 <div>
 <ul>
