@@ -237,3 +237,10 @@ form .authentication-table th {
     background-color: #ddd;
     color: #434343;
 }
+.search{
+    margin-left: 20px;
+}
+#searchContent{
+    width: 60%;
+    border: 1px solid #ddd;
+}

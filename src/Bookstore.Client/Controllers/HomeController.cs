@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using Bookstore.Client.Settings;
 using MapsterMapper;
 using Nest;
+using IronPdf;
 
 namespace Bookstore.Client.Controllers;
 
@@ -193,6 +194,35 @@ public class HomeController : BaseController
 
         var books = _mapper.Map<IEnumerable<BookViewModel>>(or);
         return PartialView("_Books", books);
+    }
+    
+    [HttpGet]
+    public IActionResult SearchBook(Guid id)
+    {
+        return View(new BookSearchViewModel { Id = id });
+    }
+    [HttpPost]
+    public async Task<IActionResult> SearchBook(BookSearchViewModel model)
+    {
+        var storagePath = await _fileStorageService.GetBookPathAsync(model.Id);
+        var bookPath = Path.Combine(storagePath, "book.pdf");
+        var pdf = PdfDocument.FromFile(bookPath);
+        for(int index=0; index < pdf.PageCount; index++)
+        {
+            int PageNumber = index + 1;
+            var text = pdf.ExtractTextFromPage(index);
+            if (text.ToLower().Contains(model.Input.ToLower()))
+            {
+                return View(new BookSearchViewModel
+                {
+                    Id = model.Id,
+                    Input = model.Input,
+                    TextResult = text
+                });
+            }
+        }
+        ViewBag.Message = "Couldn't find anything.";
+        return View(model);
     }
     public IActionResult Privacy()
     {

@@ -1,0 +1,50 @@
+﻿@model BookSearchViewModel
+
+@{
+    ViewData["Title"] = "Search the book";
+    var message = ViewBag.Message ?? "";
+}
+
+<div class="search">
+    <h1>Search the book</h1>
+
+    <form id="searchForm" action="SearchBook" method="post">
+        <input type="hidden" asp-for="@Model.Id" />
+        <dl>
+            <dt>
+                <label for="title" class="col-2 col-form-label">Search input</label>
+            </dt>
+            <dd>
+              <div class="col col-sm-6">
+                  <input required id="input" asp-for="@Model.Input" class="form-control" />
+              </div>
+            </dd>
+        </dl>
+        <button type="submit" value="Search" class="btn btn-primary">Search</button>
+    </form>
+    <br />
+    <h4>Search result</h4>
+    <textarea id="searchContent">@message@Model.TextResult</textarea><br /><br />
+    <a href="@Url.Action("index")" class="action">Back to index</a>
+</div>
+
+
+@section Scripts {
+  <script>
+    "use strict";
+
+    async function searchBook (form) {
+        $("#searchContent").text("");
+        const formData = new FormData(form);
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData
+        });
+
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+  </script>
+}

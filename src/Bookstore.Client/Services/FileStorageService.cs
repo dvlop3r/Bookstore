@@ -58,6 +58,7 @@ namespace Bookstore.Client.Services
         }
         public string GetUserProfilePath() => Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         public Task<string> GetBookStoragePath(Guid Id) => Task.FromResult(Path.Combine(GetUserProfilePath(), _settings.Value.Storage ?? "BookstoreStorage", Id.ToString()));
+        public async Task<string> GetBookPathAsync(Guid id) => await GetBookStoragePath(id);
 
     }
 }

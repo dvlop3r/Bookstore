@@ -68,8 +68,8 @@ This is a book store CRUD-based app that helps storing book pdf files along with
 <ul>
     <li><b>Clean Architecture and DDD</b></li>
     <li><b>CQRS+Mediator</b></li>
-    <li><b>Pipeline behaviour</b></li>
     <li><b>Fluent Validation</b></li>
+    <li><b>Validation Pipeline Behaviour</b></li>
     <li><b>UnitOfWork</b></li>
     <li><b>Repository</b></li>
     <li><b>Singleton</b></li>
